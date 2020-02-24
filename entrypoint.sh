@@ -18,7 +18,10 @@ gitleaks --help
 gitleaks --version
 
 echo $GITHUB_WORKSPACE
-ls -al /github/workspace
+ls -al /github/workspace/
+ls -al /github/
+
+echo "aint shit here?"
 
 echo "we need two commits to test?"
 
