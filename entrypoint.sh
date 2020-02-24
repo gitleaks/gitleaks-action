@@ -22,3 +22,4 @@ ls /github/workspace
 ls "$GITHUB_WORKSPACE"
 
 echo "eh"
+echo "mmm"
