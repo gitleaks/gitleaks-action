@@ -21,6 +21,8 @@ echo $GITHUB_WORKSPACE
 ls -al /github/workspace/
 ls -al /github/
 
+gitleaks --repo-path=$GITHUB_WORKSPACE --verbose
+
 echo "aint shit here?"
 
 echo "we need two commits to test?"
