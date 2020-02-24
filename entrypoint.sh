@@ -17,8 +17,8 @@ echo "???"
 gitleaks --help
 gitleaks --version
 
+echo $GITHUB_WORKSPACE"'
 ls /github/workspace
-pwd
 ls "$GITHUB_WORKSPACE"
 
 echo "eh"
