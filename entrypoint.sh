@@ -15,5 +15,6 @@ echo "$GITHUB_EVENT_NAME"
 echo "???"
 
 gitleaks --help
+gitleaks --version
 
 echo "eh"
