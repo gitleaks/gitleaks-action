@@ -13,3 +13,7 @@ fi
 
 echo "$GITHUB_EVENT_NAME"
 echo "???"
+
+gitleaks --help
+
+echo "eh"
