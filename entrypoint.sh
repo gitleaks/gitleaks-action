@@ -19,8 +19,6 @@ gitleaks --version
 
 echo $GITHUB_WORKSPACE
 ls -al /github/workspace
-ls -al "$GITHUB_WORKSPACE"
 
-echo "eh"
-echo "mmm"
 echo "we need two commits to test?"
+
