@@ -18,8 +18,8 @@ gitleaks --help
 gitleaks --version
 
 echo $GITHUB_WORKSPACE
-ls /github/workspace
-ls "$GITHUB_WORKSPACE"
+ls -al /github/workspace
+ls -al "$GITHUB_WORKSPACE"
 
 echo "eh"
 echo "mmm"
