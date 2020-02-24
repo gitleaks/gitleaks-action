@@ -3,7 +3,7 @@ echo "hello"
 printenv
 if [ "$GITHUB_EVENT_NAME" = "push" ]
 then 
-  echo "push";
+  echo "this is a push";
 fi
 
 if [ "$GITHUB_EVENT_NAME" = "pull_request" ]
@@ -12,3 +12,4 @@ then
 fi 
 
 echo "$GITHUB_EVENT_NAME"
+echo "???"
