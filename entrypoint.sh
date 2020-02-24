@@ -16,5 +16,6 @@ echo "???"
 
 gitleaks --help
 gitleaks --version
+ls -l
 
 echo "eh"
