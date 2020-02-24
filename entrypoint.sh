@@ -10,3 +10,5 @@ if [ "$GITHUB_EVENT_NAME" = "pull_request" ]
 then 
   echo "pull_request";
 fi 
+
+echo "$GITHUB_EVENT_NAME"
