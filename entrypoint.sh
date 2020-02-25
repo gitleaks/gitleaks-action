@@ -21,7 +21,7 @@ echo $GITHUB_WORKSPACE
 ls -al /github/workspace/
 ls -al /github/
 
-gitleaks --repo-path=$GITHUB_WORKSPACE --verbose
+gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA
 
 echo "aint shit here?"
 
