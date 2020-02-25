@@ -3,7 +3,7 @@
 echo running gitleaks "$(gitleaks --version)"
 if [ "$GITHUB_EVENT_NAME" = "push" ]
 then
-  gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA --pretty
+  gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA
 elif [ "$GITHUB_EVENT_NAME" = "pull_request" ]
 then 
   git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF > commit_list.txt
