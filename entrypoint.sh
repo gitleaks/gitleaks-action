@@ -10,14 +10,10 @@ then
   gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)"
 fi 
 
-echo $?
-echo "output?"
-
-# aws_access_key_id='AKIAIO5FODNN7EXAMPLE' 
- 
 if [ $? -eq 1 ]
 then
   echo "Gitleaks encountered some leaks"
+  exit 1
 else
   echo "Your code is good to go"
 fi
