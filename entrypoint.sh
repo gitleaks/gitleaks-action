@@ -15,10 +15,6 @@ fi
 echo $?
 echo "output?"
 
-# aws_access_key_id='AKIAIO5FODNN7EXAMPLE'
-
-# aws_access_key_id='AKIAIO5FODNN7EXAMPLE'
-
 if [ $? -eq 1 ]
 then
   echo "Gitleaks encountered some leaks"
