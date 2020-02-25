@@ -14,7 +14,11 @@ fi
 # git --git-dir="$GITHUB_WORKSPACE/.git" log $GITHUB_WORKSPACE
 git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --graph --cherry-pick --oneline $GITHUB_BASE_REF...$GITHUB_HEAD_REF
 
+
 printenv
+git --git-dir="$GITHUB_WORKSPACE/.git" branch
+git --git-dir="$GITHUB_WORKSPACE/.git" branch -a
+
 echo "anything?"
 
 # aws_access_key_id='AKIAIO5FODNN7EXAMPLE'
