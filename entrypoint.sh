@@ -1,30 +1,19 @@
 #!/bin/bash
-echo "hello"
-printenv
+
+echo running gitleaks "$(gitleaks --version)"
 if [ "$GITHUB_EVENT_NAME" = "push" ]
-then 
-  echo "this is a push";
+then
+  gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA
 fi
 
 if [ "$GITHUB_EVENT_NAME" = "pull_request" ]
 then 
-  echo "pull_request";
+  gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA
 fi 
 
-echo "$GITHUB_EVENT_NAME"
-echo "???"
+git --git-dir="$GITHUB_WORKSPACE/.git" log $GITHUB_WORKSPACE
+git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --graph --cherry-pick --oneline $GITHUB_BASE_REF...origin/$GITHUB_HEAD_REF
 
-gitleaks --help
-gitleaks --version
 
-echo $GITHUB_WORKSPACE
-ls -al /github/workspace/
-ls -al /github/
 # aws_access_key_id='AKIAIO5FODNN7EXAMPLE'
-
-gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA
-
-echo "aint shit her??/e?"
-
-echo "we need two commits to test?"
 
