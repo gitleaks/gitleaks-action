@@ -12,6 +12,7 @@ then
 fi 
 
 # git --git-dir="$GITHUB_WORKSPACE/.git" log $GITHUB_WORKSPACE
+echo git --git-dir=$GITHUB_WORKSPACE/.git log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF
 git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF
 
 
