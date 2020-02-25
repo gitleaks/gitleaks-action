@@ -1,4 +1,4 @@
-name: CI
+name: gitleaks-pull-request
 
 on: [pull_request]
 
@@ -8,10 +8,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: zricethezav/gitleaks-action@master
-    - name: Run a one-line script
-      run: echo PR Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo PR Add other actions to build,
-        echo PR test, and deploy your project.
+    - uses: actions/checkout@v1
+    - name: gitleaks-action
+      uses: zricethezav/gitleaks-action@master
