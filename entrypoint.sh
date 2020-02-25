@@ -23,7 +23,7 @@ ls -al /github/
 
 gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA
 
-echo "aint shit here?"
+echo "aint shit her??/e?"
 
 echo "we need two commits to test?"
 
