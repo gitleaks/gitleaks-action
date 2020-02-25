@@ -8,12 +8,10 @@ fi
 
 if [ "$GITHUB_EVENT_NAME" = "pull_request" ]
 then 
-  gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA
+  git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF > commit_list.txt
+  echo gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list)" --commit-to="$(tail -n commit_list)"
+  gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list)" --commit-to="$(tail -n commit_list)"  
 fi 
-
-# git --git-dir="$GITHUB_WORKSPACE/.git" log $GITHUB_WORKSPACE
-echo git --git-dir=$GITHUB_WORKSPACE/.git log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF
-git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF
 
 
 printenv
