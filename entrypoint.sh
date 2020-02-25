@@ -12,7 +12,7 @@ then
 fi 
 
 # git --git-dir="$GITHUB_WORKSPACE/.git" log $GITHUB_WORKSPACE
-git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --graph --cherry-pick --oneline $GITHUB_BASE_REF...$GITHUB_HEAD_REF
+git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF
 
 
 printenv
