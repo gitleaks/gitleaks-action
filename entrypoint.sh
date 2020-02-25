@@ -20,6 +20,7 @@ git --git-dir="$GITHUB_WORKSPACE/.git" branch
 git --git-dir="$GITHUB_WORKSPACE/.git" branch -a
 
 echo "anything?"
+echo "new pr"
 
 # aws_access_key_id='AKIAIO5FODNN7EXAMPLE'
 # aws_access_key_id='AKIAIO5FODNN7EXAMPLE'
