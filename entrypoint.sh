@@ -11,5 +11,7 @@ then
   gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA
 fi 
 
+git log $GITHUB_WORKSPACE
+
 # aws_access_key_id='AKIAIO5FODNN7EXAMPLE'
 
