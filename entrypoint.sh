@@ -20,6 +20,7 @@ gitleaks --version
 echo $GITHUB_WORKSPACE
 ls -al /github/workspace/
 ls -al /github/
+# aws_access_key_id='AKIAIO5FODNN7EXAMPLE'
 
 gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA
 
