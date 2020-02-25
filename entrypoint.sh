@@ -11,8 +11,8 @@ then
   git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF > commit_list.txt
   cat commit_list.txt
   echo "commit list"
-  echo gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(tail -n 1 commit_list.txt)" --commit-to="$(head -n 1 commit_list.txt)"
-  gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(tail -n 1 commit_list.txt)" --commit-to="$(head -n 1 commit_list.txt)"  
+  echo gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --branch=$GITHUB_HEAD_REF --commit-from="$(tail -n 1 commit_list.txt)" --commit-to="$(head -n 1 commit_list.txt)"
+  gitleaks --repo-path=$GITHUB_WORKSPACE --verbose --redact --branch=$GITHUB_HEAD_REF --commit-from="$(tail -n 1 commit_list.txt)" --commit-to="$(head -n 1 commit_list.txt)"  
 fi 
 
 
