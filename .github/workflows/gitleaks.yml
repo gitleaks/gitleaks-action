@@ -1,12 +1,10 @@
-name: gitleaks-push
+name: gitleaks
 
-on: [push]
+on: [push,pull_request]
 
 jobs:
-  build:
-
+  gitleaks:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: gitleaks-action
