@@ -12,8 +12,14 @@ fi
 
 if [ $? -eq 1 ]
 then
-  echo "Gitleaks encountered some leaks"
+  echo "STOP! Gitleaks encountered leaks"
+  echo "pssst, maintaining gitleaks takes a lot of work... consider sponsoring or donating a little something"
+  echo "https://github.com/sponsors/zricethezav"
+  echo "https://www.paypal.me/zricethezav"
   exit 1
 else
   echo "Your code is good to go"
+  echo "pssst, maintaining gitleaks takes a lot of work... consider sponsoring or donating a little something"
+  echo "https://github.com/sponsors/zricethezav"
+  echo "https://www.paypal.me/zricethezav"
 fi
