@@ -1,4 +1,4 @@
-name: Gitleaks Action
+name: Gitleaks
 description: Run Gitleaks on Push and PR events
 branding:
   color: purple
