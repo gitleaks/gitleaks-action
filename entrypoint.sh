@@ -4,22 +4,8 @@ CONFIG=""
 # check if using gitleaks config or not
 if [ -f "$GITHUB_WORKSPACE/.gitleaks.toml" ]
 then
-  echo "it exists"
   CONFIG=" --config=$GITHUB_WORKSPACE/.gitleaks.toml"
 fi
-
-if [ -f ".gitleaks.toml" ]
-then
-  echo "it exists 1"
-  CONFIG=" --config=$GITHUB_WORKSPACE/.gitleaks.toml"
-fi
-
-if [[ -f "$GITHUB_WORKSPACE/.gitleaks.toml" ]]
-then
-  echo "it exists 2"
-  CONFIG=" --config=$GITHUB_WORKSPACE/.gitleaks.toml"
-fi
-
 
 echo running gitleaks "$(gitleaks --version) with the following command👇"
 
