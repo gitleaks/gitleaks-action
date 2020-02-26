@@ -3,8 +3,8 @@
 echo running gitleaks "$(gitleaks --version)"
 
 DONATE_MSG="
-pssst, maintaining gitleaks takes a lot of work... consider sponsoring or donating a little something\n
-https://github.com/sponsors/zricethezav\n
+pssst, maintaining gitleaks takes a lot of work... consider sponsoring or donating a little something
+https://github.com/sponsors/zricethezav
 https://www.paypal.me/zricethezav
 "
 
