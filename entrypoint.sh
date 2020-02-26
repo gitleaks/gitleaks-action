@@ -26,3 +26,4 @@ else
   echo "-----------------------------------"
   echo -e $DONATE_MSG
 fi
+printenv
