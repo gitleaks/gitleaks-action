@@ -16,9 +16,11 @@ fi
 if [ $? -eq 1 ]
 then
   echo -e "\e[31mSTOP! Gitleaks encountered leaks"
+  echo "------------------"
   echo -e $DONATE_MSG
   exit 1
 else
   echo -e "\e[32mSUCESS! Your code is good to go!"
+  echo "------------------"
   echo -e $DONATE_MSG
 fi
