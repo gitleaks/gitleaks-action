@@ -8,6 +8,19 @@ then
   CONFIG=" --config=$GITHUB_WORKSPACE/.gitleaks.toml"
 fi
 
+if [ -f ".gitleaks.toml" ]
+then
+  echo "it exists 1"
+  CONFIG=" --config=$GITHUB_WORKSPACE/.gitleaks.toml"
+fi
+
+if [[ -f "$GITHUB_WORKSPACE/.gitleaks.toml" ]]
+then
+  echo "it exists 2"
+  CONFIG=" --config=$GITHUB_WORKSPACE/.gitleaks.toml"
+fi
+
+
 echo running gitleaks "$(gitleaks --version) with the following command👇"
 
 DONATE_MSG="👋 maintaining gitleaks takes a lot of work so consider sponsoring me or donating a little something\n\e[36mhttps://github.com/sponsors/zricethezav\n\e[36mhttps://www.paypal.me/zricethezav\n"
