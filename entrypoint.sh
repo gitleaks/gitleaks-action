@@ -19,6 +19,16 @@ then
   exit 1
 else
   echo "Your code is good to go"
+  echo "
+┌────────────────────────────────────────────────────────────────────┐
+│                                                                    │
+│     _______ _     _ _______ _______ _______ _______ _______   /    │
+│     |______ |     | |       |       |______ |______ |______  /     │
+│     ______| |_____| |_____  |_____  |______ ______| ______| .      │
+│                                                                    │
+│                                                                    │
+└────────────────────────────────────────────────────────────────────┘
+" 
   echo "pssst, maintaining gitleaks takes a lot of work... consider sponsoring or donating a little something"
   echo "https://github.com/sponsors/zricethezav"
   echo "https://www.paypal.me/zricethezav"
