@@ -3,8 +3,8 @@
 echo running gitleaks "$(gitleaks --version)"
 
 DONATE_MSG="
-pssst, maintaining gitleaks takes a lot of work... consider sponsoring or donating a little something
-https://github.com/sponsors/zricethezav
+pssst, maintaining gitleaks takes a lot of work... consider sponsoring or donating a little something\n
+https://github.com/sponsors/zricethezav\n
 https://www.paypal.me/zricethezav
 "
 
@@ -23,6 +23,6 @@ then
   echo $DONATE_MSG
   exit 1
 else
-  echo -e "\e[32mYour code is good to go"
+  echo -e "\e[32mSUCESS! Your code is good to go!"
   echo $DONATE_MSG
 fi
