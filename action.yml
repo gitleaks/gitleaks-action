@@ -6,3 +6,8 @@ branding:
 runs:
   using: "docker"
   image: "Dockerfile"
+inputs:
+  gitleaksConfig:
+    description: 'path to gitleaks config from root directory'
+    required: false
+    default: ''
