@@ -2,8 +2,9 @@
 
 CONFIG=""
 # check if using gitleaks config or not
-if [ "$GITHUB_WORKSPACE/.gitleaks.toml" ]
+if [ -f "$GITHUB_WORKSPACE/.gitleaks.toml" ]
 then
+  echo "it exists"
   CONFIG=" --config=$GITHUB_WORKSPACE/.gitleaks.toml"
 fi
 
