@@ -1,0 +1,8 @@
+name: Gitleaks Action
+description: Run Gitleaks on Push and PR events
+branding:
+  color: purple
+  icon: eye
+runs:
+  using: "docker"
+  image: "Dockerfile"
