@@ -2,7 +2,7 @@
 
 echo running gitleaks "$(gitleaks --version)"
 
-DONATE_MSG="pssst, maintaining gitleaks takes a lot of work... consider sponsoring or donating a little something\nhttps://github.com/sponsors/zricethezav\nhttps://www.paypal.me/zricethezav"
+DONATE_MSG="👋 maintaining gitleaks takes a lot of work... consider sponsoring me or donating a little something\nhttps://github.com/sponsors/zricethezav\nhttps://www.paypal.me/zricethezav\n"
 
 if [ "$GITHUB_EVENT_NAME" = "push" ]
 then
@@ -15,12 +15,12 @@ fi
 
 if [ $? -eq 1 ]
 then
-  echo -e "\e[31mSTOP! Gitleaks encountered leaks"
+  echo -e "\e[31m 🛑 STOP! Gitleaks encountered leaks"
   echo "------------------"
   echo -e $DONATE_MSG
   exit 1
 else
-  echo -e "\e[32mSUCESS! Your code is good to go!"
+  echo -e "\e[32m ✅ SUCESS! Your code is good to go!"
   echo "------------------"
   echo -e $DONATE_MSG
 fi
