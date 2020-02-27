@@ -21,7 +21,7 @@ jobs:
 ```
 
 ### Using your own .gitleaks.toml configuration
-Simple include a .gitleaks.toml in the root of your repo directory.
+Include a .gitleaks.toml in the root of your repo directory.
 
 ### NOTE!!!
 You must use `actions/checkout` before the gitleaks-action step. If you are using `actions/checkout@v2` you must specify a commit depth other than the default which is 1. 
