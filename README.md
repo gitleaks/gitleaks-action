@@ -5,7 +5,7 @@
 Gitleaks Action provides a simple way to run gitleaks in your CI/CD pipeline.
 
 
-### Usage
+### Sample Workflow
 ```
 name: gitleaks
 
@@ -22,3 +22,6 @@ jobs:
 
 ### Using your own .gitleaks.toml configuration
 Simple include a .gitleaks.toml in the root of your repo directory.
+
+### NOTE!!!
+You must use `- uses: actions/checkout@v1` before the gitleaks-action step
