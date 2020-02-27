@@ -2,7 +2,7 @@
   <img alt="gitleaks" src="https://raw.githubusercontent.com/zricethezav/gifs/master/gitleakslogo.png" height="70" />
 </p>
 
-Gitleaks Action provides a simple way to run gitleaks on your github code.
+Gitleaks Action provides a simple way to run gitleaks in your CI/CD pipeline.
 
 
 ### Usage
