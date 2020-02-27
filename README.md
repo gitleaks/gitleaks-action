@@ -19,3 +19,6 @@ jobs:
     - name: gitleaks-action
       uses: zricethezav/gitleaks-action@master
 ```
+
+### Using your own .gitleaks.toml configuration
+Simple include a .gitleaks.toml in the root of your repo directory.
