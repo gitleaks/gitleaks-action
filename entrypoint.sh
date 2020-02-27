@@ -29,8 +29,8 @@ then
   echo -e $DONATE_MSG
   exit 1
 else
-  echo -e "\e[32m✅ SUCESS! Your code is good to go!"
-  echo "-----------------------------------"
+  echo -e "\e[32m✅ SUCCESS! Your code is good to go!"
+  echo "------------------------------------"
   echo -e $DONATE_MSG
 fi
 
