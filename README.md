@@ -4,13 +4,6 @@
 
 Gitleaks Action provides a simple way to run gitleaks on your github code.
 
-gitleaks
-
-is
-
-cool
-
-test
 
 ### Usage
 ```
