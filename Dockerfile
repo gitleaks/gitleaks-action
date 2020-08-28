@@ -1,17 +1,10 @@
-FROM golang:1.14.1 AS build
-WORKDIR /go/src/github.com/zricethezav/gitleaks
-ARG ldflags
-COPY . .
-RUN GO111MODULE=on CGO_ENABLED=0 go build -o bin/gitleaks -ldflags "-X="${ldflags} *.go
+FROM zzzzz/gitleaks
 
-FROM alpine:3.11
-RUN apk add --no-cache bash git openssh
-COPY --from=build /go/src/github.com/zricethezav/gitleaks/bin/* /usr/bin/
-ENTRYPOINT ["gitleaks"]
+LABEL "com.github.actions.name"="gitleaks-action"
+LABEL "com.github.actions.description"="runs gitleaks on push and pull request events"
+LABEL "com.github.actions.icon"="shield"
+LABEL "com.github.actions.color"="purple"
+LABEL "repository"="https://github.com/armadillo-filed-testing/gitleaks-action"
 
-# How to use me :
-
-# docker build -t gitleaks .
-# docker run --rm --name=gitleaks gitleaks --repo=https://github.com/zricethezav/gitleaks
-
-# This will check for secrets in https://github.com/zricethezav/gitleaks
+ADD entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
