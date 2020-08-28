@@ -7,5 +7,5 @@ runs:
   using: "docker"
   image: "Dockerfile"
 outputs:
-  result: "what it this"
+  result: result
     description: 'results of the scan'
