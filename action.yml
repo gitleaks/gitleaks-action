@@ -8,4 +8,4 @@ runs:
   image: "Dockerfile"
 outputs:
   results: # id of output
-    description: 'results of the scan
+    description: 'results of the scan'
