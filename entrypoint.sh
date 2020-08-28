@@ -28,9 +28,11 @@ then
   echo -e "\e[31m🛑 STOP! Gitleaks encountered leaks"
   echo "----------------------------------"
   echo -e $DONATE_MSG
+  echo -e $GITLEAKS_RESULTS
   exit 1
 else
   echo -e "\e[32m✅ SUCCESS! Your code is good to go!"
   echo "------------------------------------"
+  echo -e $GITLEAKS_RESULTS
   echo -e $DONATE_MSG
 fi
