@@ -22,8 +22,10 @@ then
   echo gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG
   gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG
 fi
-GITLEAKS_RESULTS=$?
+
 if [ $? -eq 1 ]
+GITLEAKS_RESULTS=$?
+echo $?
 then
   echo -e "\e[31m🛑 STOP! Gitleaks encountered leaks"
   echo "----------------------------------"
