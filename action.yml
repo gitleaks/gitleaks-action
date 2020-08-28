@@ -6,3 +6,6 @@ branding:
 runs:
   using: "docker"
   image: "Dockerfile"
+outputs:
+  results: # id of output
+    description: 'results of the scan
