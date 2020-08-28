@@ -24,7 +24,7 @@ then
 fi
 
 if [ $? -eq 1 ]
-GITLEAKS_RESULTS=$?
+GITLEAKS_RESULTS="$?"
 echo $?
 then
   echo -e "\e[31m🛑 STOP! Gitleaks encountered leaks"
