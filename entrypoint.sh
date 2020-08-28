@@ -22,16 +22,17 @@ then
   echo gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG
   gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG
 fi
-GITLEAKS_RESULTS=$?
 echo $GITLEAKS_RESULTS
 if [ $? -eq 1 ]
 then
   echo -e "\e[31m🛑 STOP! Gitleaks encountered leaks"
   echo "----------------------------------"
+  echo $GITLEAKS_RESULTS
   echo -e $DONATE_MSG
   exit 1
 else
   echo -e "\e[32m✅ SUCCESS! Your code is good to go!"
   echo "------------------------------------"
+  echo $GITLEAKS_RESULTS
   echo -e $DONATE_MSG
 fi
