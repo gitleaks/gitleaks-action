@@ -27,12 +27,12 @@ if [ $? -eq 1 ]
 then
   echo -e "\e[31m🛑 STOP! Gitleaks encountered leaks"
   echo "----------------------------------"
-  echo $GITLEAKS_RESULTS
+  echo -e $GITLEAKS_RESULTS
   echo -e $DONATE_MSG
   exit 1
 else
   echo -e "\e[32m✅ SUCCESS! Your code is good to go!"
   echo "------------------------------------"
-  echo $GITLEAKS_RESULTS
+  echo -e $GITLEAKS_RESULTS
   echo -e $DONATE_MSG
 fi
