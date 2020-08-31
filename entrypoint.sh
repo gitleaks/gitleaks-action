@@ -20,8 +20,7 @@ then
   git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF > commit_list.txt
   echo gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
   gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
-  rm commit_list.txt
-fi 
+fi
 
 if [ $? -eq 1 ]
 then
@@ -34,4 +33,3 @@ else
   echo "------------------------------------"
   echo -e $DONATE_MSG
 fi
-
