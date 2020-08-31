@@ -11,6 +11,8 @@ echo running gitleaks "$(gitleaks --version) with the following command👇"
 
 DONATE_MSG="👋 maintaining gitleaks takes a lot of work so consider sponsoring me or donating a little something\n\e[36mhttps://github.com/sponsors/zricethezav\n\e[36mhttps://www.paypal.me/zricethezav\n"
 GITLEAKS_RESULTS="hellothere"
+TESTVAR="testvar"
+echo "::set output name=result::$TESTVAR"
 
 if [ "$GITHUB_EVENT_NAME" = "push" ]
 then
@@ -23,8 +25,6 @@ then
   gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG
 fi
 GITLEAKS_RESULTS="$?"
-TESTVAR="testvar"
-echo "::set output name=result::$TESTVAR"
 if [ $? -eq 1 ]
 then
   echo -e "\e[31m🛑 STOP! Gitleaks encountered leaks"
