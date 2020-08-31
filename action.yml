@@ -3,9 +3,9 @@ description: Run Gitleaks on Push and PR events
 branding:
   color: purple
   icon: eye
+outputs:
+  result:
+    description: 'results of the scan'
 runs:
   using: "docker"
   image: "Dockerfile"
-outputs:
-  result: 
-    description: 'results of the scan'
