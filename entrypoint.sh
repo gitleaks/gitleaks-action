@@ -16,27 +16,29 @@ DONATE_MSG="👋 maintaining gitleaks takes a lot of work so consider sponsoring
 if [ "$GITHUB_EVENT_NAME" = "push" ]
 then
   echo gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA $CONFIG
-  CAPTURE=$(gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA $CONFIG)
+  CAPTURE_OUTPUT=$(gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA $CONFIG)
 elif [ "$GITHUB_EVENT_NAME" = "pull_request" ]
 then
   git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF > commit_list.txt
   echo gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG
-  CAPTURE=$(gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG)
+  CAPTURE_OUTPUT=$(gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG)
 fi
-echo "Capture data: $CAPTURE"
-GITLEAKS_RESULTS="$?"
-echo "::set-output name=result::$GITLEAKS_RESULTS"
+echo "$CAPTURE_OUTPUT"
+GITLEAKS_EXITCODE="$?"
+echo "::set-output name=result::$CAPTURE_OUTPUT"
 
 if [ $? -eq 1 ]
 then
-  echo -e "\e[31m🛑 STOP! Gitleaks encountered leaks"
+  GITLEAKS_RESULT=$(echo -e "\e[31m🛑 STOP! Gitleaks encountered leaks")
+  echo "$GITLEAKS_RESULT"
+  echo "::set-output name=exitcode::$GITLEAKS_RESULT"
   echo "----------------------------------"
   echo -e $DONATE_MSG
-  echo -e $GITLEAKS_RESULTS
   exit 1
 else
-  echo -e "\e[32m✅ SUCCESS! Your code is good to go!"
+  GITLEAKS_RESULT=$(echo -e "\e[32m✅ SUCCESS! Your code is good to go!")
+  echo "$GITLEAKS_RESULT"
+  echo "::set-output name=exitcode::$GITLEAKS_RESULT"
   echo "------------------------------------"
-  echo -e $GITLEAKS_RESULTS
   echo -e $DONATE_MSG
 fi
