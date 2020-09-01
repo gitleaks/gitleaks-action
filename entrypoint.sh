@@ -23,7 +23,7 @@ then
   echo gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG
   CAPTURE=$(gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG)
 fi
-echo "$CAPTURE"
+echo "Capture data: $CAPTURE"
 GITLEAKS_RESULTS="$?"
 echo "::set-output name=result::$GITLEAKS_RESULTS"
 
