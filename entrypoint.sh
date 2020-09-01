@@ -24,7 +24,7 @@ then
   gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG
 fi
 GITLEAKS_RESULTS="$?"
-echo "::set output name=result::$GITLEAKS_RESULTS"
+echo "::set-output name=result::$GITLEAKS_RESULTS"
 
 if [ $? -eq 1 ]
 then
