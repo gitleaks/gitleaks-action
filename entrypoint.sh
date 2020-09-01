@@ -24,7 +24,6 @@ then
   CAPTURE_OUTPUT=$(gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit-from="$(head -n 1 commit_list.txt)" --commit-to="$(tail -n 1 commit_list.txt)" $CONFIG)
 fi
 echo "$CAPTURE_OUTPUT"
-GITLEAKS_EXITCODE="$?"
 echo "::set-output name=result::$CAPTURE_OUTPUT"
 
 if [ $? -eq 1 ]
