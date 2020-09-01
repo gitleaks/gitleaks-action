@@ -8,4 +8,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: gitleaks-action
-      uses: armadillo-field-testing/gitleaks-action@master
+      uses: zricethezav/gitleaks-action@master
