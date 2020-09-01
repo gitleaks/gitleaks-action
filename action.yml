@@ -3,9 +3,6 @@ description: Run Gitleaks on Push and PR events
 branding:
   color: purple
   icon: eye
-outputs:
-  result: # id of output
-    description: 'the exit code'
 runs:
   using: "docker"
   image: "Dockerfile"
