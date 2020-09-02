@@ -99,6 +99,8 @@ title = "gitleaks config"
 	description = "Twilio API key"
 	regex = '''(?i)twilio(.{0,20})?['\"][0-9a-f]{32}['\"]'''
 	tags = ["key", "twilio"]
-[whitelist]
-	description = "Whitelisted files"
-	file = '''(^\.?gitleaks.toml$|(.*?)(jpg|gif|doc|pdf|bin)$)'''
+[allowlist]
+	description = "Allowlisted files"
+	files = ['''^\.?gitleaks.toml$''',
+	'''(.*?)(jpg|gif|doc|pdf|bin)$''',
+	'''(go.mod|go.sum)$''']
