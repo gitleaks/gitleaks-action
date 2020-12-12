@@ -1,4 +1,4 @@
-FROM zricethezav/gitleaks:7.2.0
+FROM zricethezav/gitleaks:v7.2.0
 
 LABEL "com.github.actions.name"="gitleaks-action"
 LABEL "com.github.actions.description"="runs gitleaks on push and pull request events"
