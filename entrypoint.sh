@@ -4,7 +4,7 @@ CONFIG=""
 # check if using gitleaks config or not
 if [ -f "$GITHUB_WORKSPACE/.gitleaks.toml" ]
 then
-  CONFIG=" --config=$GITHUB_WORKSPACE/.gitleaks.toml"
+  CONFIG=" --config-path=$GITHUB_WORKSPACE/.gitleaks.toml"
 fi
 
 echo running gitleaks "$(gitleaks --version) with the following command👇"
