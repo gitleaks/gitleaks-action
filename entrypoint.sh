@@ -13,13 +13,13 @@ DONATE_MSG="👋 maintaining gitleaks takes a lot of work so consider sponsoring
 
 if [ "$GITHUB_EVENT_NAME" = "push" ]
 then
-  echo gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA $CONFIG
-  gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA $CONFIG
+  echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA $CONFIG
+  gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commit=$GITHUB_SHA $CONFIG
 elif [ "$GITHUB_EVENT_NAME" = "pull_request" ]
 then 
   git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF...remotes/origin/$GITHUB_HEAD_REF > commit_list.txt
-  echo gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
-  gitleaks --pretty --repo-path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
+  echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
+  gitleaks --pretty --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
 fi
 
 if [ $? -eq 1 ]
