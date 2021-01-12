@@ -3,6 +3,11 @@ description: Run Gitleaks on Push and PR events
 branding:
   color: purple
   icon: eye
+inputs:
+  config-path:
+    description: 'Path to config (relative to $GITHUB_WORKSPACE)'
+    required: false
+    default: '.github/.gitleaks.toml'
 outputs:
   result: # id of output
     description: 'Gitleaks log output'
@@ -11,3 +16,5 @@ outputs:
 runs:
   using: "docker"
   image: "Dockerfile"
+  args:
+    - ${{ inputs.config-path }}
