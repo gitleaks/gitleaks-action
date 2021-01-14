@@ -21,7 +21,22 @@ jobs:
 ```
 
 ### Using your own .gitleaks.toml configuration
-Include a .gitleaks.toml in the root of your repo directory.
+```
+name: gitleaks
+
+on: [push,pull_request]
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: gitleaks-action
+      uses: zricethezav/gitleaks-action@master
+      with:
+        config-path: security/.gitleaks.toml
+```
+    > The `config-path` is relative to your GitHub Worskpace
 
 ### NOTE!!!
 You must use `actions/checkout` before the gitleaks-action step. If you are using `actions/checkout@v2` you must specify a commit depth other than the default which is 1. 
