@@ -5,7 +5,7 @@ CONFIG=""
 
 # check if a custom config have been provided
 if [ -f "$GITHUB_WORKSPACE/$INPUT_CONFIG_PATH" ]; then
-  CONFIG=" --config-path=$GITHUB_WORKSPACE/$INPUT_CONFIG_PATH"
+  CONFIG=" --additional-config=$GITHUB_WORKSPACE/$INPUT_CONFIG_PATH"
 fi
 
 echo running gitleaks "$(gitleaks --version) with the following command👇"
