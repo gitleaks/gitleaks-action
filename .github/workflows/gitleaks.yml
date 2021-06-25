@@ -8,8 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: gitleaks-action with defaults
-        uses: zricethezav/gitleaks-action@master
+        # uses: zricethezav/gitleaks-action@master
+        uses: stone-z/gitleaks-action@scan-only-pushed-commits
+        with:
+          commit-before: ${{ github.event.before }}
       - name: gitleaks-action with config
-        uses: zricethezav/gitleaks-action@master
+        uses: stone-z/gitleaks-action@scan-only-pushed-commits
         with:
           config-path: .gitleaks.yml
+          commit-before: ${{ github.event.before }}
