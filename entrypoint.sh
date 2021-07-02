@@ -19,6 +19,10 @@ then
 elif [ "$GITHUB_EVENT_NAME" = "pull_request" ]
 then 
   git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF... > commit_list.txt
+  if [ $? -eq 1 ]
+  then
+    exit 1
+  fi
   echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
   CAPTURE_OUTPUT=$(gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG)
 fi
