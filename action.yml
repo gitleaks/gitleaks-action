@@ -11,7 +11,7 @@ inputs:
   format:
     description: 'report format'
     required: false
-    default: "SARIF"
+    default: SARIF
 outputs:
   result: # id of output
     description: 'Gitleaks log output'
