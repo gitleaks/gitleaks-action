@@ -20,6 +20,29 @@ jobs:
       uses: zricethezav/gitleaks-action@master
 ```
 
+### Sample Workflow with branch specified
+```
+name: gitleaks
+
+on: [push,pull_request]
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set Job Vars
+        id: set_vars
+        run: |
+          branch=${{ github.head_ref || github.ref }}
+          branch_name="${branch#"refs/heads/"}"
+          echo "::set-output name=branch_name::$branch_name"
+    - name: gitleaks-action
+      uses: zricethezav/gitleaks-action@master
+      with:
+        branch: ${{ steps.set_vars.outputs.branch_name }}
+```
+
 ### Using your own .gitleaks.toml configuration
 ```
 name: gitleaks
