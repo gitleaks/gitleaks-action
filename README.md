@@ -38,8 +38,31 @@ jobs:
 ```
     > The `config-path` is relative to your GitHub Worskpace
 
+### Output report and upload as an artifact
+```
+name: gitleaks
+
+on: [push,pull_request]
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: gitleaks-action
+      uses: zricethezav/gitleaks-action@master
+      with:
+        extra-args: -o gitleaks.json
+    - uses: actions/upload-artifact@v2
+      with:
+        name: gitleaks
+        path: gitleaks.json
+```
+
 ### NOTE!!!
-You must use `actions/checkout` before the gitleaks-action step. If you are using `actions/checkout@v2` you must specify a commit depth other than the default which is 1. 
+You must use `actions/checkout` before the gitleaks-action step. If you are using `actions/checkout@v2` you must specify a commit depth other than the default which is 1.
+
+If you configure extra arguments so that there's an output file and you want the output file to be uploaded as an artifact, you must use `actions/upload-artifact` after the gitleaks-action step.
 
 ex: 
 ```
@@ -49,6 +72,10 @@ ex:
         fetch-depth: '0'
     - name: gitleaks-action
       uses: zricethezav/gitleaks-action@master
+    - uses: actions/upload-artifact@v2
+      with:
+        name: gitleaks
+        path: gitleaks.json
 ```
 
 using a fetch-depth of '0' clones the entire history. If you want to do a more efficient clone, use '2', but that is not guaranteed to work with pull requests.   
