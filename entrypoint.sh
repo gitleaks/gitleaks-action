@@ -1,6 +1,7 @@
 #!/bin/bash
 
 INPUT_CONFIG_PATH="$1"
+EXTRA_ARGS="$2"
 CONFIG=""
 
 # check if a custom config have been provided
@@ -14,13 +15,13 @@ DONATE_MSG="👋 maintaining gitleaks takes a lot of work so consider sponsoring
 
 if [ "$GITHUB_EVENT_NAME" = "push" ]
 then
-  echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact $CONFIG
-  CAPTURE_OUTPUT=$(gitleaks --path=$GITHUB_WORKSPACE --verbose --redact $CONFIG)
+  echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact $CONFIG $EXTRA_ARGS
+  CAPTURE_OUTPUT=$(gitleaks --path=$GITHUB_WORKSPACE --verbose --redact $CONFIG $EXTRA_ARGS)
 elif [ "$GITHUB_EVENT_NAME" = "pull_request" ]
 then 
   git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF... > commit_list.txt
-  echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
-  CAPTURE_OUTPUT=$(gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG)
+  echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG $EXTRA_ARGS
+  CAPTURE_OUTPUT=$(gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG $EXTRA_ARGS)
 fi
 
 if [ $? -eq 1 ]

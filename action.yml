@@ -8,6 +8,10 @@ inputs:
     description: 'Path to config (relative to $GITHUB_WORKSPACE)'
     required: false
     default: '.github/.gitleaks.toml'
+  extra-args:
+    description: 'Extra arguments to be passed onto gitleaks'
+    required: false
+    default: ''
 outputs:
   result: # id of output
     description: 'Gitleaks log output'
@@ -18,3 +22,4 @@ runs:
   image: "Dockerfile"
   args:
     - ${{ inputs.config-path }}
+    - ${{ inputs.extra-args }}
