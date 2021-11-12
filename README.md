@@ -38,7 +38,7 @@ jobs:
 ```
     > The `config-path` is relative to your GitHub Worskpace
 
-### Output report and upload as an artifact
+### Use extra args to output report and upload as an artifact
 ```
 name: gitleaks
 
@@ -58,6 +58,8 @@ jobs:
         name: gitleaks
         path: gitleaks.json
 ```
+
+Related documentation: https://github.com/zricethezav/gitleaks#usage-and-options
 
 ### NOTE!!!
 You must use `actions/checkout` before the gitleaks-action step. If you are using `actions/checkout@v2` you must specify a commit depth other than the default which is 1.
