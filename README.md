@@ -38,7 +38,7 @@ jobs:
 ```
     > The `config-path` is relative to your GitHub Worskpace
 
-### Use extra args to output report and upload as an artifact
+### Use extra args to output report
 ```
 name: gitleaks
 
@@ -53,10 +53,6 @@ jobs:
       uses: zricethezav/gitleaks-action@master
       with:
         extra-args: -o gitleaks.json
-    - uses: actions/upload-artifact@v2
-      with:
-        name: gitleaks
-        path: gitleaks.json
 ```
 
 Related documentation: https://github.com/zricethezav/gitleaks#usage-and-options
@@ -74,6 +70,8 @@ ex:
         fetch-depth: '0'
     - name: gitleaks-action
       uses: zricethezav/gitleaks-action@master
+      with:
+        extra-args: -o gitleaks.json
     - uses: actions/upload-artifact@v2
       with:
         name: gitleaks
