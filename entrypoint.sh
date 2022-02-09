@@ -1,11 +1,11 @@
 #!/bin/bash
 
 INPUT_CONFIG_PATH="$1"
-CONFIG=""
+CONFIG=" --config-path=/gitleaks.toml"
 
 # check if a custom config have been provided
 if [ -f "$GITHUB_WORKSPACE/$INPUT_CONFIG_PATH" ]; then
-  CONFIG=" --additional-config=$GITHUB_WORKSPACE/$INPUT_CONFIG_PATH"
+  CONFIG="$CONFIG --additional-config=$GITHUB_WORKSPACE/$INPUT_CONFIG_PATH"
 fi
 
 echo running gitleaks "$(gitleaks --version) with the following command👇"
