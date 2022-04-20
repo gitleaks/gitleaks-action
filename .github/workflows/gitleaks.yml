@@ -10,9 +10,9 @@ jobs:
       with:
         fetch-depth: 0
     - name: gitleaks-action with config
-      uses: zricethezav/gitleaks-action@master
+      uses: bpo/gitleaks-action@master
       with:
         # test custom path for config
         config-path: gitleaks.toml
     - name: gitleaks-action with defaults will fail
-      uses: zricethezav/gitleaks-action@master
+      uses: bpo/gitleaks-action@master
