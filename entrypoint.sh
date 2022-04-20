@@ -1,27 +1,33 @@
 #!/bin/bash
 
-INPUT_CONFIG_PATH="$1"
-CONFIG=""
+set -eu -o pipefail
+
+# Assume the $GITHUB_WORKSPACE is a safe directory
+# https://github.blog/2022-04-12-git-security-vulnerability-announced/
+git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+extra_args=""
 
 # check if a custom config have been provided
-if [ -f "$GITHUB_WORKSPACE/$INPUT_CONFIG_PATH" ]; then
-  CONFIG=" --config-path=$GITHUB_WORKSPACE/$INPUT_CONFIG_PATH"
+if [ ! -z "$1" ]; then
+  extra_args="$extra_args --config $GITHUB_WORKSPACE/$1"
 fi
 
-echo running gitleaks "$(gitleaks --version) with the following command👇"
+# use log-opts to limit the commits scanned for pull requests
+if [ "$GITHUB_EVENT_NAME" = "pull_request" ]
+then
+  log_opts="--left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF..."
+  extra_args="$extra_args --log-opts \"$log_opts\""
+fi
 
 DONATE_MSG="👋 maintaining gitleaks takes a lot of work so consider sponsoring me or donating a little something\n\e[36mhttps://github.com/sponsors/zricethezav\n\e[36mhttps://www.paypal.me/zricethezav\n"
 
-if [ "$GITHUB_EVENT_NAME" = "push" ]
-then
-  echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact $CONFIG
-  CAPTURE_OUTPUT=$(gitleaks --path=$GITHUB_WORKSPACE --verbose --redact $CONFIG)
-elif [ "$GITHUB_EVENT_NAME" = "pull_request" ]
-then 
-  git --git-dir="$GITHUB_WORKSPACE/.git" log --left-right --cherry-pick --pretty=format:"%H" remotes/origin/$GITHUB_BASE_REF... > commit_list.txt
-  echo gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG
-  CAPTURE_OUTPUT=$(gitleaks --path=$GITHUB_WORKSPACE --verbose --redact --commits-file=commit_list.txt $CONFIG)
-fi
+echo running gitleaks $(gitleaks version) with the following command👇
+args="detect --source=$GITHUB_WORKSPACE --verbose --redact $extra_args"
+echo gitleaks $args
+
+set +e
+CAPTURE_OUTPUT=$(gitleaks $args)
 
 if [ $? -eq 1 ]
 then

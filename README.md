@@ -6,6 +6,11 @@
 
 Gitleaks Action provides a simple way to run gitleaks in your CI/CD pipeline.
 
+This action should be used after a checkout. Be sure `actions/checkout` runs with the appropriate
+`fetch-depth` that you need:
+
+* `fetch-depth: 0` clones the entire history
+* `fetch-depth: 1`, the default, fetches only the most recent commit.
 
 ### Sample Workflow
 ```
@@ -17,7 +22,9 @@ jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: '0'
     - name: gitleaks-action
       uses: zricethezav/gitleaks-action@master
 ```
@@ -32,25 +39,12 @@ jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: '0'
     - name: gitleaks-action
       uses: zricethezav/gitleaks-action@master
       with:
         config-path: security/.gitleaks.toml
 ```
     > The `config-path` is relative to your GitHub Worskpace
-
-### NOTE!!!
-You must use `actions/checkout` before the gitleaks-action step. If you are using `actions/checkout@v2` you must specify a commit depth other than the default which is 1. 
-
-ex: 
-```
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: '0'
-    - name: gitleaks-action
-      uses: zricethezav/gitleaks-action@master
-```
-
-using a fetch-depth of '0' clones the entire history. If you want to do a more efficient clone, use '2', but that is not guaranteed to work with pull requests.   

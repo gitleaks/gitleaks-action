@@ -104,3 +104,9 @@ title = "gitleaks config"
 	files = ['''^\.?gitleaks.toml$''',
 	'''(.*?)(jpg|gif|doc|pdf|bin)$''',
 	'''(go.mod|go.sum)$''']
+	commits = [
+		'20fc1291b984a8374b5d19a4442645e7aae506d6',
+		'b5714cec629d710b7880a4158a8809f1cfee8448',
+		'e1a5408dec0df17125c6a2e4bc57fa56e1296e7d',
+		'e7150a87e012d353a2c2e1ca8ec832b036dbde40',
+	]
