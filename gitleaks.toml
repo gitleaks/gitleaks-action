@@ -104,6 +104,8 @@ title = "gitleaks config"
 	files = ['''^\.?gitleaks.toml$''',
 	'''(.*?)(jpg|gif|doc|pdf|bin)$''',
 	'''(go.mod|go.sum)$''']
+	# These commits contain fake secrets from early test/dev of the action.
+	# Ignoring them allows the action to pass.
 	commits = [
 		'20fc1291b984a8374b5d19a4442645e7aae506d6',
 		'b5714cec629d710b7880a4158a8809f1cfee8448',
