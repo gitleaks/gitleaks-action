@@ -9,10 +9,17 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: gitleaks-action with config
+    - name: gitleaks custom config
       uses: bpo/gitleaks-action@master
       with:
-        # test custom path for config
+        # Custom config ignores planted secrets early in project history
         config-path: gitleaks.toml
-    - name: gitleaks-action with defaults will fail
+  gitleaks-head:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        # Fetch depth of 1 ignores secrets early in project history
+        fetch-depth: 1
+    - name: gitleaks default config
       uses: bpo/gitleaks-action@master

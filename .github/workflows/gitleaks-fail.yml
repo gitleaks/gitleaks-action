@@ -1,0 +1,25 @@
+# The jobs in this workflow are expected to fail, demonstrating scenarios
+# where the action should fail due to misconfiguration, etc.
+name: gitleaks action failure verification
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  secrets-found:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: early secrets found
+      uses: bpo/gitleaks-action@master
+  missing-config:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: gitleaks-action
+      uses: bpo/gitleaks-action@master
+      with:
+        config-path: gitleaks.missing.toml
