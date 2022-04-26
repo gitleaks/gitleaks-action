@@ -23,3 +23,7 @@ jobs:
         fetch-depth: 1
     - name: gitleaks default config
       uses: bpo/gitleaks-action@master
+    - name: gitleaks no-git
+      uses: bpo/gitleaks-action@master
+      with:
+        no-git: true

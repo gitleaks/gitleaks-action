@@ -8,9 +8,15 @@ git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
 extra_args=""
 
-# check if a custom config have been provided
+# specify custom config if provided
 if [ ! -z "${1-""}" ]; then
   extra_args="$extra_args --config $GITHUB_WORKSPACE/$1"
+fi
+
+shift
+# specify no-git if provided
+if [ "true" = "${1-""}" ]; then
+  extra_args="$extra_args --no-git"
 fi
 
 # use log-opts to limit the commits scanned for pull requests
