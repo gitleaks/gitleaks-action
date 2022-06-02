@@ -19,6 +19,11 @@ const octokit = new Octokit({
 
 const EXIT_CODE_LEAKS_DETECTED = 2;
 
+// This is a dummy secret for a demonstration of some of the new capabilities for Gitleaks-Action v2.0.0
+aws_secret="AKIAIMNOJVGFDXXXE4OA"
+discord_client_secret="8dyfuiRyqFvVc3TRr_edRk-fK__JItpK"
+
+
 // Install will download the version of gitleaks specified in GITLEAKS_VERSION
 // or use the latest version of gitleaks if GITLEAKS_VERSION is not specified.
 // This function will also cache the downloaded gitleaks binary in the tool cache.
