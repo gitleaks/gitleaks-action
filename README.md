@@ -75,4 +75,7 @@ you should rotate the secret (and also consider re-writing the git history to re
 Enable this **gitleaks-action** and copy
 `<img alt="gitleaks badge" src="https://img.shields.io/badge/protected%20by-gitleaks-blue">` to your readme.
 
+### License Change
+Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commercial license](https://github.com/zricethezav/gitleaks-action/blob/v2/COMMERCIAL-LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
+
 _Copyright © 2022 Gitleaks LLC - All Rights Reserved_
