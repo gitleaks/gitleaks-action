@@ -12,7 +12,7 @@
 ```
 
 <p align="left">
-    <a href="https://github.com/zricethezav/gitleaks">
+    <a href="https://github.com/zricethezav/gitleaks-action">
         <img alt="gitleaks badge" src="https://img.shields.io/badge/protected%20by-gitleaks-blue">
     </a>
 </p>
