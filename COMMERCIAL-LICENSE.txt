@@ -6,7 +6,10 @@ IMPORTANT: THIS SOFTWARE END-USER LICENSE AGREEMENT ("EULA") IS A LEGAL AGREEMEN
 
 ------------------------------------------------------------------------------
 
-In order to use the Software under this Agreement, you must acquire a License Key. 
+In order to use the Software under this Agreement, you may be required to obtain a License Key, as follows:
+* If you are using the Software to scan repositories owned by an Organization Account, as defined here https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#organization-accounts, then you must obtain a License Key.
+* If you are using the Software to scan repositories owned by a Personal Account, as defined here https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts, then no License Key is required.
+* License Key requirements are automatically enforced by the Software, and if there is any uncertainty about whether a License Key is required, you may rely upon the behavior of the Software.
 
 1. License Grant
 

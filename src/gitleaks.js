@@ -2,7 +2,7 @@
 // You may use this code under the terms of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT.
 // You should have received a copy of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT with this file.
 // If not, please visit https://gitleaks.io/COMMERCIAL-LICENSE.txt.
-const { Octokit } = require("@octokit/rest");
+
 const exec = require("@actions/exec");
 const cache = require("@actions/cache");
 const core = require("@actions/core");
@@ -12,12 +12,9 @@ const os = require("os");
 const path = require("path");
 const artifact = require("@actions/artifact");
 
-const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
-  baseUrl: process.env.GITHUB_API_URL,
-});
-
 const EXIT_CODE_LEAKS_DETECTED = 2;
+
+// TODO: Make a gitleaks class with an octokit attribute so we don't have to pass in the octokit to every method.
 
 // Install will download the version of gitleaks specified in GITLEAKS_VERSION
 // or use the latest version of gitleaks if GITLEAKS_VERSION is not specified.
@@ -82,7 +79,7 @@ function downloadURL(platform, arch, version) {
   return `${baseURL}/v${version}/gitleaks_${version}_${platform}_${arch}.tar.gz`;
 }
 
-async function Latest() {
+async function Latest(octokit) {
   // docs: https://octokit.github.io/rest.js/v18#repos-get-latest-release
   const latest = await octokit.rest.repos.getLatestRelease({
     owner: "zricethezav",
@@ -92,7 +89,7 @@ async function Latest() {
   return latest.data.tag_name.replace(/^v/, "");
 }
 
-async function Scan(scanInfo, eventType) {
+async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
   let args = [
     "detect",
     "--redact",
@@ -118,12 +115,15 @@ async function Scan(scanInfo, eventType) {
     const options = {
       continueOnError: true,
     };
-    await artifactClient.uploadArtifact(
-      artifactName,
-      ["results.sarif"],
-      process.env.HOME,
-      options
-    );
+
+    if (gitleaksEnableUploadArtifact == true) {
+      await artifactClient.uploadArtifact(
+        artifactName,
+        ["results.sarif"],
+        process.env.HOME,
+        options
+      );
+    }
   }
   return exitCode;
 }
@@ -149,7 +149,12 @@ function getLogOpts(scanInfo, eventType) {
   throw `Invalid scanInfo [${scanInfo}] or eventType [${eventType}]`;
 }
 
-async function ScanPullRequest(eventJSON, eventType) {
+async function ScanPullRequest(
+  gitleaksEnableUploadArtifact,
+  octokit,
+  eventJSON,
+  eventType
+) {
   const fullName = eventJSON.repository.full_name;
   const [owner, repo] = fullName.split("/");
 
@@ -167,7 +172,11 @@ async function ScanPullRequest(eventJSON, eventType) {
     headRef: commits.data[commits.data.length - 1].sha,
   };
 
-  const exitCode = await Scan(scanInfo, eventType);
+  const exitCode = await Scan(
+    gitleaksEnableUploadArtifact,
+    scanInfo,
+    eventType
+  );
 
   // skip comments if `GITLEAKS_ENABLE_COMMENTS` is set to false
   if (process.env.GITLEAKS_ENABLE_COMMENTS == "false") {

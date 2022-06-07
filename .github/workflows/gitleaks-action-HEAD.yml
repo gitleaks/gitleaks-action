@@ -1,0 +1,20 @@
+# Copyright © 2022 Gitleaks LLC - All Rights Reserved.
+# You may use this code under the terms of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT.
+# You should have received a copy of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT with this file.
+# If not, please visit https://github.com/gitleaks/gitleaks-action/blob/main/COMMERCIAL-LICENSE.txt.
+
+# CAUTION: This is for testing purposes.
+name: gitleaks-action-HEAD
+on: [pull_request, workflow_dispatch]
+jobs:
+  scan:
+    name: gitleaks-action-HEAD
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: ./  # Runs the action that's in the root directory of the repo checked out above. i.e. This action itself.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}}
