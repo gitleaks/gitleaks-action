@@ -42,11 +42,13 @@ jobs:
 
 - `GITHUB_TOKEN`: This variable is automatically assigned by GitHub when any action gets kicked off. You can read more about the token [here](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret).  
   **gitleaks-action** uses this token to call [a GitHub API](https://octokit.github.io/rest.js/v18#pulls-create-review-comment) to comment on PRs.
-- `GITLEAKS_LICENSE` (required): A **gitleaks-action** license obtained at [gitleaks.io](https://gitleaks.io/products.html). **It should be added as an encrypted secret [to the repo](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) or [to the organization](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-an-organization).**
+- `GITLEAKS_LICENSE` (required for organizations, not required for user accounts): A **gitleaks-action** license obtained at [gitleaks.io](https://gitleaks.io/products.html). **It should be added as an encrypted secret [to the repo](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) or [to the organization](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-an-organization).**
 - `GITLEAKS_NOTIFY_USER_LIST` (optional): A list of GitHub accounts that should be alerted when **gitleaks-action** detects a leak. An email will be sent by GitHub to the user if their GitHub notification settings permit it. The format should be comma-separated with each username prefixed with `@`. Ex: `@octocat,@zricethezav,@gitleaks`. Spaces are okay too.
-- `GITLEAKS_ENABLE_COMMENTS`: (optional): Boolean value that turns on or off PR commenting. Default value is `true`.
+- `GITLEAKS_ENABLE_COMMENTS` (optional): Boolean value that turns on or off PR commenting. Default value is `true`.
   Set to `false` to disable comments.
-- `GITLEAKS_CONFIG`: (optional): Path to a [gitleaks configuration file](https://github.com/zricethezav/gitleaks#configuration).
+- `GITLEAKS_CONFIG` (optional): Path to a [gitleaks configuration file](https://github.com/zricethezav/gitleaks#configuration).
+- `GITLEAKS_ENABLE_UPLOAD_ARTIFACT` (optional): Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets. Defaults to `true`.
+- `GITLEAKS_ENABLE_SUMMARY` (optional): Boolean value to enable or disable gitleaks job summary. Defaults to `true`.
 
 ## Questions
 
