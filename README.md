@@ -35,7 +35,7 @@ jobs:
       - uses: zricethezav/gitleaks-action@v2.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts.
 ```
 
 ### Environment Variables:
@@ -49,6 +49,11 @@ jobs:
 - `GITLEAKS_CONFIG`: (optional): Path to a [gitleaks configuration file](https://github.com/zricethezav/gitleaks#configuration).
 
 ## Questions
+
+### Do I need a license key?
+If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a license key. You can obtain a [free license key](https://gitleaks.io/products.html) for scanning 1 repo.
+
+If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required.
 
 ### How do I get a license key?
 
