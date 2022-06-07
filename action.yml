@@ -3,8 +3,8 @@
 # You should have received a copy of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT with this file.
 # If not, please visit https://gitleaks.io/COMMERCIAL-LICENSE.txt
 
-name: gitleaks-action
-author: gitleaks
+name: Gitleaks
+author: zricethezav
 branding:
   icon: "git-pull-request"
   color: "purple"
