@@ -38,6 +38,40 @@ jobs:
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts.
 ```
 
+### V2 Features:
+
+#### 1. On demand scans
+You can now use `workflow_dispatch` events to trigger on demand gitleaks scans.
+
+<img width="816" alt="Screen Shot 2022-05-30 at 8 30 31 PM" src="https://user-images.githubusercontent.com/15034943/171079785-4040ebc1-d353-4fa6-8c62-d19c806e372a.png">
+
+
+#### 2. Gitleaks report artifact uploads
+Not much more to say here. Download reports when leaks are present. Pretty useful feature.
+
+<img width="1056" alt="Screen Shot 2022-05-30 at 9 20 36 PM" src="https://user-images.githubusercontent.com/15034943/171079991-387f2c1d-a8fd-4e5a-82aa-9f03b0c51b75.png">
+
+#### 3. Powered by the latest version of Gitleaks
+The latest version of gitleaks (v8.8.6 at the time of writing) has better performance, more configuration options, and is more accurate than the previous major version.
+
+#### 4. Job summaries
+Easy to understand report of a Gitleaks job. If no leaks are detected you'll see:
+
+<img width="1054" alt="Screen Shot 2022-05-30 at 9 26 10 PM" src="https://user-images.githubusercontent.com/15034943/171080569-208da9fe-fb76-4d81-97f0-8adbd77febe4.png">
+
+If leaks are detected you'll see something like:
+
+<img width="1056" alt="Screen Shot 2022-05-30 at 8 41 07 PM" src="https://user-images.githubusercontent.com/15034943/171079699-a9a11f44-1579-4a70-86e7-eadedc29eda9.png">
+
+#### 5. Faster job times
+Gitleaks-Action Version 2 does not rely on Docker build anymore.
+
+#### 6. Pull Request Comments
+If a leak is encountered during a pull request, gitleaks-action will comment on the line number and commit containing the secret.
+
+<img width="912" alt="Screen Shot 2022-05-31 at 9 31 06 PM" src="https://user-images.githubusercontent.com/15034943/171316255-575f92f3-15a3-472d-a56a-3cf30a25ffbc.png">
+
+---
 ### Environment Variables:
 
 - `GITHUB_TOKEN`: This variable is automatically assigned by GitHub when any action gets kicked off. You can read more about the token [here](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret).  
@@ -49,7 +83,7 @@ jobs:
 - `GITLEAKS_CONFIG` (optional): Path to a [gitleaks configuration file](https://github.com/zricethezav/gitleaks#configuration).
 - `GITLEAKS_ENABLE_UPLOAD_ARTIFACT` (optional): Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets. Defaults to `true`.
 - `GITLEAKS_ENABLE_SUMMARY` (optional): Boolean value to enable or disable gitleaks job summary. Defaults to `true`.
-
+---
 ## Questions
 
 ### Do I need a license key?
