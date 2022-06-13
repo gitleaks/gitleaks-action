@@ -19,7 +19,9 @@
 
 Gitleaks Action provides a simple way to run gitleaks in your CI/CD pipeline.
 
-## Attention 📢
+## 📢 Announcement
+_6/13/2022_
+
 On June 2, 2022, we released [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0). There are a boatload of improvements
 in v2, but it also represents a breaking change from the prior version (v1.6.0). We haven't merged v2 to the `master` branch yet because we noticed that
 many users of Gitleaks Action don't pin their version. If you are using `zricethezav/gitleaks-action@master` (or now `gitleaks/gitleaks-action@master`),
