@@ -41,34 +41,24 @@ For full details, see the rest of the v2 README [below](#usage-example). Here is
 #### How to pin to v1.6.0
 * Change your "uses" line to `gitleaks/gitleaks-action@v1.6.0`
 * Set a reminder to upgrade to v2 later.
--------------------------------------------------------------------------
 
-## Usage Example
+## v2 Benefits
+If you are using gitleaks-action v2 to scan repos owned by an [Organization](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#organization-accounts),
+you will find that you need to [acquire a GITEAKS_LICENSE](https://gitleaks.io/products.html) in order for the action to run. A license to scan 1 repo is
+free, but scanning more than 1 repo belonging to the same organization requires a paid license. This raises the obvious question:
 
-```yml
-name: gitleaks
-on: [pull_request, push, workflow_dispatch]
-jobs:
-  scan:
-    name: gitleaks
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts.
-```
+**_Is v2 really worth paying for?_**
 
-### V2 Features:
+It's a fair question. We think that the new features and improvements in v2 deliver exceptional value for the price. We put together a list of some of the
+top reasons we think v2 is worth paying for. Expand the section below to see details.
+
+<details>
+<summary><em>Show/hide details</em></summary>
 
 #### 1. On demand scans
 You can now use `workflow_dispatch` events to trigger on demand gitleaks scans.
 
 <img width="816" alt="Screen Shot 2022-05-30 at 8 30 31 PM" src="https://user-images.githubusercontent.com/15034943/171079785-4040ebc1-d353-4fa6-8c62-d19c806e372a.png">
-
 
 #### 2. Gitleaks report artifact uploads
 Not much more to say here. Download reports when leaks are present. Pretty useful feature.
@@ -94,6 +84,33 @@ Gitleaks-Action Version 2 does not rely on Docker build anymore.
 If a leak is encountered during a pull request, gitleaks-action will comment on the line number and commit containing the secret.
 
 <img width="912" alt="Screen Shot 2022-05-31 at 9 31 06 PM" src="https://user-images.githubusercontent.com/15034943/171316255-575f92f3-15a3-472d-a56a-3cf30a25ffbc.png">
+
+#### 7. Ensure Project Longevity
+Gitleaks is used by thousands (millions?) of developers around the world. It is used by individuals, governments, and corporations to prevent and detect
+leaked secrets. Until now, everything associated with gitleaks has been Free and Open Source under the MIT License, maintained primarily as a side project
+by 1 person. Let's be honest, that wasn't a sustainable model (and it was starting to feel like an [xkcd comic](https://xkcd.com/2347/)).
+
+By buying a `GITLEAKS_LICENSE` to use v2, you are supporting the gitleaks project as a whole and helping to ensure the longevity of the project.
+</details>
+
+## Usage Example
+
+```yml
+name: gitleaks
+on: [pull_request, push, workflow_dispatch]
+jobs:
+  scan:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts.
+```
 
 ---
 ### Environment Variables:
