@@ -52,6 +52,7 @@ free, but scanning more than 1 repo belonging to the same organization requires 
 It's a fair question. We think that the new features and improvements in v2 deliver exceptional value for the price. We put together a list of some of the
 top reasons we think v2 is worth paying for. Expand the section below to see details.
 
+<table><tr><td>
 <details>
 <summary><em>Show/hide details</em></summary>
 
@@ -92,6 +93,7 @@ by 1 person. Let's be honest, that wasn't a sustainable model (and it was starti
 
 By buying a `GITLEAKS_LICENSE` to use v2, you are supporting the gitleaks project as a whole and helping to ensure the longevity of the project.
 </details>
+</td></tr></table>
 
 ## Usage Example
 
