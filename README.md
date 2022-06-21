@@ -19,6 +19,28 @@
 
 Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos. Gitleaks is an easy-to-use, all-in-one solution for detecting secrets, past or present, in your code. Enable **Gitleaks-Action** in your GitHub workflows to be alerted when secrets are leaked as soon as they happen.
 
+## 📢 Why is my gitleaks-action job suddenly failing?
+_6/21/2022_
+
+On June 21, 2022, we merged [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0) into the `master` branch. This is a breaking update, and we made an effort to contact as many of our users as possible via GitHub, social media, etc. If you didn't know this breaking update was coming, we sincerely apologize for the inconvenience. The good news is, remedying the job failure is straightforward! You can either:
+1. [Upgrade to v2](#how-to-upgrade-to-v2), or
+1. [Pin to an older version](#how-to-pin-to-v160)
+
+Please note that if you are scanning repos that belong to an organization, you'll have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables) to use v2 (free tier available). That might come as a surprise to my users that are accustomed to using Gitleaks-Action free of charge, so I wrote a blog post explaining how/why I decided to monetize this project: https://blog.gitleaks.io/gitleaks-llc-announcement-d7d06a52e801
+
+Finally, please see below for a summary of why I think you'll love the new v2 release: [v2 Benefits](#v2-benefits)
+
+## 📢 Announcement
+_6/13/2022_
+
+On June 2, 2022, we released [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0). There are a boatload of improvements
+in v2, but it also represents a breaking change from the prior version (v1.6.0). We haven't merged v2 to the `master` branch yet because we noticed that
+many users of Gitleaks Action don't pin their version. If you are using `zricethezav/gitleaks-action@master` (or now `gitleaks/gitleaks-action@master`),
+then as soon as we merge v2 to master, your jobs will start failing.
+
+We are planning to complete the merge on **June 20, 2022**. We recommend updating your .yml files to use v2 now so you aren't scrambling to do it after
+your gitleaks-action jobs start failing. As an alternative, you can pin your version to v1.6.0 for now, if you aren't ready to upgrade at the moment.
+
 #### How to upgrade to v2
 
 For full details, see the rest of the v2 README [below](#usage-example). Here is the quick list of changes to your .yml:
@@ -32,7 +54,7 @@ For full details, see the rest of the v2 README [below](#usage-example). Here is
 * Set a reminder to upgrade to v2 later.
 
 ## v2 Benefits
-If you are using gitleaks-action v2 to scan repos owned by an [Organization](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#organization-accounts),
+If you are using Gitleaks-Action v2 to scan repos owned by an [Organization](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#organization-accounts),
 you will find that you need to [acquire a GITEAKS_LICENSE](https://gitleaks.io/products.html) in order for the action to run. A license to scan 1 repo is
 free, but scanning more than 1 repo belonging to the same organization requires a paid license. This raises the obvious question:
 
@@ -109,7 +131,7 @@ jobs:
 
 - `GITHUB_TOKEN`: This variable is automatically assigned by GitHub when any action gets kicked off. You can read more about the token [here](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret).  
   **gitleaks-action** uses this token to call [a GitHub API](https://octokit.github.io/rest.js/v18#pulls-create-review-comment) to comment on PRs.
-- `GITLEAKS_LICENSE` (required for organizations, not required for user accounts): A **gitleaks-action** license obtained at [gitleaks.io](https://gitleaks.io/products.html). **It should be added as an encrypted secret [to the repo](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) or [to the organization](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-an-organization).**
+- `GITLEAKS_LICENSE` (required for organizations, not required for user accounts): A **gitleaks-action** license can be obtained at [gitleaks.io](https://gitleaks.io/products.html). **It should be added as an encrypted secret [to the repo](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) or [to the organization](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-an-organization).**
 - `GITLEAKS_NOTIFY_USER_LIST` (optional): A list of GitHub accounts that should be alerted when **gitleaks-action** detects a leak. An email will be sent by GitHub to the user if their GitHub notification settings permit it. The format should be comma-separated with each username prefixed with `@`. Ex: `@octocat,@zricethezav,@gitleaks`. Spaces are okay too.
 - `GITLEAKS_ENABLE_COMMENTS` (optional): Boolean value that turns on or off PR commenting. Default value is `true`.
   Set to `false` to disable comments.
