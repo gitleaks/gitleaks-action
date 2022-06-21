@@ -19,17 +19,6 @@
 
 Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos. Gitleaks is an easy-to-use, all-in-one solution for detecting secrets, past or present, in your code. Enable **Gitleaks-Action** in your GitHub workflows to be alerted when secrets are leaked as soon as they happen.
 
-## 📢 Announcement
-_6/13/2022_
-
-On June 2, 2022, we released [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0). There are a boatload of improvements
-in v2, but it also represents a breaking change from the prior version (v1.6.0). We haven't merged v2 to the `master` branch yet because we noticed that
-many users of Gitleaks Action don't pin their version. If you are using `zricethezav/gitleaks-action@master` (or now `gitleaks/gitleaks-action@master`),
-then as soon as we merge v2 to master, your jobs will start failing.
-
-We are planning to complete the merge on **June 20, 2022**. We recommend updating your .yml files to use v2 now so you aren't scrambling to do it after
-your gitleaks-action jobs start failing. As an alternative, you can pin your version to v1.6.0 for now, if you aren't ready to upgrade at the moment.
-
 #### How to upgrade to v2
 
 For full details, see the rest of the v2 README [below](#usage-example). Here is the quick list of changes to your .yml:
@@ -73,6 +62,7 @@ The latest version of gitleaks (v8.8.6 at the time of writing) has better perfor
 Easy to understand report of a Gitleaks job. If no leaks are detected you'll see:
 
 <img width="1054" alt="Screen Shot 2022-05-30 at 9 26 10 PM" src="https://user-images.githubusercontent.com/15034943/171080569-208da9fe-fb76-4d81-97f0-8adbd77febe4.png">
+
 
 If leaks are detected you'll see something like:
 
@@ -163,5 +153,6 @@ Enable this **gitleaks-action** and copy
 
 ### License Change
 Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commercial license](https://github.com/zricethezav/gitleaks-action/blob/v2/COMMERCIAL-LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
+
 
 _Copyright © 2022 Gitleaks LLC - All Rights Reserved_
