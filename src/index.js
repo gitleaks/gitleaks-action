@@ -40,7 +40,6 @@ const eventType = process.env.GITHUB_EVENT_NAME;
 const githubUsername = eventJSON.repository.owner.login;
 
 core.info(`process.env.GITHUB_TOKEN [${process.env.GITHUB_TOKEN}]`);
-core.info(`github.token [${github.token}]`);
 core.info(`secrets.GITHUB_TOKEN [${secrets.GITHUB_TOKEN}]`);
 
 const octokit = new Octokit({
