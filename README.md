@@ -32,6 +32,17 @@ your gitleaks-action jobs start failing. As an alternative, you can pin your ver
 
 #### How to upgrade to v2
 
+For full details, see the v2 README here: https://github.com/gitleaks/gitleaks-action/tree/v2. Here is the quick list of changes to your .yml:
+* Change the "uses" line to `- uses: gitleaks/gitleaks-action@v2`
+* Add an `env:` section with `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`
+* If you are scanning repos that belong to an organization, you'll also have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables),
+  add the license to your GitHub Secrets, and add this line to the `env:` section: `GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}}`
+
+#### How to pin to v1.6.0
+* Change your "uses" line to `gitleaks/gitleaks-action@v1.6.0`
+* Set a reminder to upgrade to v2 later.
+
+#### How to upgrade to v2
 For full details, see the rest of the v2 README [below](#usage-example). Here is the quick list of changes to your .yml:
 * Change the "uses" line to `- uses: gitleaks/gitleaks-action@v2`
 * Add an `env:` section with `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`
@@ -163,5 +174,6 @@ Enable this **gitleaks-action** and copy
 
 ### License Change
 Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commercial license](https://github.com/zricethezav/gitleaks-action/blob/v2/COMMERCIAL-LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
+
 
 _Copyright © 2022 Gitleaks LLC - All Rights Reserved_
