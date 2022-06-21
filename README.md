@@ -85,6 +85,7 @@ Easy to understand report of a Gitleaks job. If no leaks are detected you'll see
 
 <img width="1054" alt="Screen Shot 2022-05-30 at 9 26 10 PM" src="https://user-images.githubusercontent.com/15034943/171080569-208da9fe-fb76-4d81-97f0-8adbd77febe4.png">
 
+
 If leaks are detected you'll see something like:
 
 <img width="1056" alt="Screen Shot 2022-05-30 at 8 41 07 PM" src="https://user-images.githubusercontent.com/15034943/171079699-a9a11f44-1579-4a70-86e7-eadedc29eda9.png">
@@ -174,5 +175,6 @@ Enable this **gitleaks-action** and copy
 
 ### License Change
 Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commercial license](https://github.com/zricethezav/gitleaks-action/blob/v2/COMMERCIAL-LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
+
 
 _Copyright © 2022 Gitleaks LLC - All Rights Reserved_
