@@ -69874,6 +69874,13 @@ async function ScanPullRequest(
   const fullName = eventJSON.repository.full_name;
   const [owner, repo] = fullName.split("/");
 
+  if (!process.env.GITHUB_TOKEN) {
+    core.error(
+      "🛑 GITHUB_TOKEN is now required to scan pull requests. You can use the automatically created token as shown in the [README](https://github.com/gitleaks/gitleaks-action#usage-example). For more info about the recent breaking update, see [here](https://github.com/gitleaks/gitleaks-action#-announcement)."
+    );
+    process.exit(1);
+  }
+
   let commits = await octokit.request(
     "GET /repos/{owner}/{repo}/pulls/{pull_number}/commits",
     {
@@ -70480,9 +70487,6 @@ const eventType = process.env.GITHUB_EVENT_NAME;
 
 // Determine if the github user is an individual or an organization
 const githubUsername = eventJSON.repository.owner.login;
-
-core.info(`process.env.GITHUB_TOKEN [${process.env.GITHUB_TOKEN}]`);
-core.info(`secrets.GITHUB_TOKEN [${secrets.GITHUB_TOKEN}]`);
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
