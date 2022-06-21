@@ -70481,6 +70481,9 @@ const eventType = process.env.GITHUB_EVENT_NAME;
 // Determine if the github user is an individual or an organization
 const githubUsername = eventJSON.repository.owner.login;
 
+core.info(`process.env.GITHUB_TOKEN [${process.env.GITHUB_TOKEN}]`);
+core.info(`github.token [${github.token}]`);
+
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
   baseUrl: process.env.GITHUB_API_URL,
