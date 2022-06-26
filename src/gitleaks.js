@@ -100,7 +100,7 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
     "--log-level=debug",
   ];
   if (eventType == "pull_request" || eventType == "push") {
-    args.push(getLogOpts(scanInfo, eventType));
+    args.push(`--log-opts=${scanInfo.baseRef}^..${scanInfo.headRef}`);
   }
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
   let exitCode = await exec.exec("gitleaks", args, {
@@ -126,27 +126,6 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
     }
   }
   return exitCode;
-}
-
-// getLogOpts attempts to run `git log` to ensure gitleaks will scan _something_ rather than fail on an invalid commit range.
-// Invalid commit ranges should not happen often but if they do, we can just scan a single commit to maintain some gitleaks coverage for every event.
-// After confirming that git log works, we can return the log options to be used in the gitleaks command.
-function getLogOpts(scanInfo, eventType) {
-  const NO_COMMIT_BEFORE = "0000000000000000000000000000000000000000";
-  if (scanInfo.baseRef == NO_COMMIT_BEFORE) {
-    scanInfo.baseRef = scanInfo.headRef;
-  }
-  if (scanInfo.baseRef == scanInfo.headRef) {
-    return `--log-opts=${scanInfo.baseRef}^..${scanInfo.headRef}`;
-  }
-  if (eventType == "pull_request") {
-    return `--log-opts=${scanInfo.baseRef}^..${scanInfo.headRef}`;
-  }
-  if (["push", "workflow_dispatch"].includes(eventType)) {
-    return `--log-opts=${scanInfo.baseRef}..${scanInfo.headRef}`;
-  }
-
-  throw `Invalid scanInfo [${scanInfo}] or eventType [${eventType}]`;
 }
 
 async function ScanPullRequest(
