@@ -118,14 +118,16 @@ async function start() {
 
   // default scanInfo
   let scanInfo = {
-    headRef: eventJSON.after, // The SHA of the most recent commit on ref after the push.
-    baseRef: eventJSON.before, // The SHA of the most recent commit on ref before the push.
     gitleaksPath: gitleaksPath,
   };
 
   // determine how to run gitleaks based on event type
   core.info("event type: " + eventType);
   if (eventType === "push") {
+    scanInfo = {
+      baseRef: eventJSON.commits[0].id,
+      headRef: eventJSON.commits[eventJSON.commits.length - 1].id,
+    };
     exitCode = await gitleaks.Scan(
       gitleaksEnableUploadArtifact,
       scanInfo,
