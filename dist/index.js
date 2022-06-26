@@ -70552,6 +70552,13 @@ async function start() {
   // determine how to run gitleaks based on event type
   core.info("event type: " + eventType);
   if (eventType === "push") {
+    // check if eventsJSON.commits is empty, if it is send a info message
+    // saying we don't have to run gitleaks
+    if (eventJSON.commits.length === 0) {
+      core.info("No commits to scan");
+      process.exit(0);
+    }
+
     scanInfo = {
       baseRef: eventJSON.commits[0].id,
       headRef: eventJSON.commits[eventJSON.commits.length - 1].id,
