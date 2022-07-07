@@ -19,19 +19,13 @@
 
 Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos. Gitleaks is an easy-to-use, all-in-one solution for detecting secrets, past or present, in your code. Enable **Gitleaks-Action** in your GitHub workflows to be alerted when secrets are leaked as soon as they happen.
 
-## 📢 Why is my gitleaks-action job suddenly failing?
-_6/21/2022_
 
-On June 21, 2022, we merged [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0) into the `master` branch. This is a breaking update, and we made an effort to contact as many of our users as possible via GitHub, social media, etc. If you didn't know this breaking update was coming, we sincerely apologize for the inconvenience. The good news is, remedying the job failure is straightforward! You can either:
-1. [Upgrade to v2](#how-to-upgrade-to-v2), or
-1. [Pin to an older version](#how-to-pin-to-v160)
-
-Please note that if you are scanning repos that belong to an organization, you'll have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables) to use v2 (free tier available). That might come as a surprise to my users that are accustomed to using Gitleaks-Action free of charge, so I wrote a blog post explaining how/why I decided to monetize this project: https://blog.gitleaks.io/gitleaks-llc-announcement-d7d06a52e801
-
-Finally, please see below for a summary of why I think you'll love the new v2 release: [v2 Benefits](#v2-benefits)
-
-## 📢 Announcement
+## 📢 v2 Announcement
 _6/13/2022_
+
+<table><tr><td>
+<details>
+<summary><em>Show/hide details</em></summary>
 
 On June 2, 2022, we released [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0). There are a boatload of improvements
 in v2, but it also represents a breaking change from the prior version (v1.6.0). We haven't merged v2 to the `master` branch yet because we noticed that
@@ -53,6 +47,9 @@ For full details, see the rest of the v2 README [below](#usage-example). Here is
 * Change your "uses" line to `gitleaks/gitleaks-action@v1.6.0`
 * Set a reminder to upgrade to v2 later.
 
+</details>
+</td></tr></table>
+
 ## v2 Benefits
 If you are using Gitleaks-Action v2 to scan repos owned by an [Organization](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#organization-accounts),
 you will find that you need to [acquire a GITEAKS_LICENSE](https://gitleaks.io/products.html) in order for the action to run. A license to scan 1 repo is
@@ -61,11 +58,7 @@ free, but scanning more than 1 repo belonging to the same organization requires 
 **_Is v2 really worth paying for?_**
 
 It's a fair question. We think that the new features and improvements in v2 deliver exceptional value for the price. We put together a list of some of the
-top reasons we think v2 is worth paying for. Expand the section below to see details.
-
-<table><tr><td>
-<details>
-<summary><em>Show/hide details</em></summary>
+top reasons we think v2 is worth paying for.
 
 #### 1. On demand scans
 You can now use `workflow_dispatch` events to trigger on demand gitleaks scans.
@@ -104,8 +97,6 @@ leaked secrets. Until now, everything associated with gitleaks has been Free and
 by 1 person. Let's be honest, that wasn't a sustainable model (and it was starting to feel like an [xkcd comic](https://xkcd.com/2347/)).
 
 By buying a `GITLEAKS_LICENSE` to use v2, you are supporting the gitleaks project as a whole and helping to ensure the longevity of the project.
-</details>
-</td></tr></table>
 
 ## Usage Example
 
@@ -167,6 +158,17 @@ The only data that **gitleaks-action** sends to any third party is data related 
 You _can_ but it is not recommended because it gives a false sense of security. If a secret is leaked in one commit, then removed in a subsequent commit,
 the security alert in the GitHub Security dashboard will show as resolved, even though the secret is still visible in the commit history. To truly address the leak,
 you should rotate the secret (and also consider re-writing the git history to remove the leak altogether).
+
+### Why is my gitleaks-action job suddenly failing?
+_6/21/2022_
+
+On June 21, 2022, we merged [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0) into the `master` branch. This is a breaking update, and we made an effort to contact as many of our users as possible via GitHub, social media, etc. If you didn't know this breaking update was coming, we sincerely apologize for the inconvenience. The good news is, remedying the job failure is straightforward! You can either:
+1. [Upgrade to v2](#how-to-upgrade-to-v2), or
+1. [Pin to an older version](#how-to-pin-to-v160)
+
+Please note that if you are scanning repos that belong to an organization, you'll have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables) to use v2 (free tier available). That might come as a surprise to my users that are accustomed to using Gitleaks-Action free of charge, so I wrote a blog post explaining how/why I decided to monetize this project: https://blog.gitleaks.io/gitleaks-llc-announcement-d7d06a52e801
+
+Finally, please see below for a summary of why I think you'll love the new v2 release: [v2 Benefits](#v2-benefits)
 
 ### How can I get a gitleaks badge on my readme?
 
