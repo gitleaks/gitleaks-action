@@ -175,9 +175,6 @@ Finally, please see above for a summary of why I think you'll love the new v2 re
 Enable this **gitleaks-action** and copy
 `<img alt="gitleaks badge" src="https://img.shields.io/badge/protected%20by-gitleaks-blue">` to your readme.
 
-### License Change
-Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commercial license](https://github.com/zricethezav/gitleaks-action/blob/v2/COMMERCIAL-LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
-
 ### I really need a secret scanner, but I have no money to buy a license. What can I do?
 If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required. You can use it for free!
 
@@ -186,5 +183,9 @@ If your organization needs a secret scanner, you still have a few options:
 * You can encourage your developers to run the gitleaks core tool as a pre-commit hook (https://github.com/zricethezav/gitleaks#pre-commit). In fact, we encourage everyone to do this anyway, even if they are also running Gitleaks-Action v2.
 * You can always pin your Gitleaks-Action yml to the last free version of Gitleaks-Action (v1.6.0). See here: [How to pin to v1.6.0](#how-to-pin-to-v160)</br>
     **Caveat**: There are some known issues with that version, and it's no longer receiving updates. But it's better than nothing.
+
+## License Change
+Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commercial license](https://github.com/zricethezav/gitleaks-action/blob/v2/COMMERCIAL-LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
+
 
 _Copyright © 2022 Gitleaks LLC - All Rights Reserved_
