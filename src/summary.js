@@ -25,7 +25,7 @@ async function Write(exitCode, eventJSON) {
     sarif.runs[0].results.forEach((result) => {
       const commitSha = result.partialFingerprints.commitSha;
       const commitURL = `${repo_url}/commit/${commitSha}`;
-      const secretURL = `${repo_url}/blob/${commitSha}/${result.locations[0].physicalLocation.artifactLocation.uri}/#L${result.locations[0].physicalLocation.region.startLine}`;
+      const secretURL = `${repo_url}/blob/${commitSha}/${result.locations[0].physicalLocation.artifactLocation.uri}#L${result.locations[0].physicalLocation.region.startLine}`;
       const fileURL = `${repo_url}/blob/${commitSha}/${result.locations[0].physicalLocation.artifactLocation.uri}`;
       resultsRows.push([
         result.ruleId,
