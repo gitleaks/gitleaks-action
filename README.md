@@ -19,19 +19,13 @@
 
 Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos. Gitleaks is an easy-to-use, all-in-one solution for detecting secrets, past or present, in your code. Enable **Gitleaks-Action** in your GitHub workflows to be alerted when secrets are leaked as soon as they happen.
 
-## 📢 Why is my gitleaks-action job suddenly failing?
-_6/21/2022_
-
-On June 21, 2022, we merged [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0) into the `master` branch. This is a breaking update, and we made an effort to contact as many of our users as possible via GitHub, social media, etc. If you didn't know this breaking update was coming, we sincerely apologize for the inconvenience. The good news is, remedying the job failure is straightforward! You can either:
-1. [Upgrade to v2](#how-to-upgrade-to-v2), or
-1. [Pin to an older version](#how-to-pin-to-v160)
-
-Please note that if you are scanning repos that belong to an organization, you'll have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables) to use v2 (free tier available). That might come as a surprise to my users that are accustomed to using Gitleaks-Action free of charge, so I wrote a blog post explaining how/why I decided to monetize this project: https://blog.gitleaks.io/gitleaks-llc-announcement-d7d06a52e801
-
-Finally, please see below for a summary of why I think you'll love the new v2 release: [v2 Benefits](#v2-benefits)
-
-## 📢 Announcement
+## Announcements
+### 📢 Release of Gitleaks-Action v2
 _6/13/2022_
+
+<table><tr><td>
+<details>
+<summary><em>Show/hide details</em></summary>
 
 On June 2, 2022, we released [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0). There are a boatload of improvements
 in v2, but it also represents a breaking change from the prior version (v1.6.0). We haven't merged v2 to the `master` branch yet because we noticed that
@@ -53,19 +47,18 @@ For full details, see the rest of the v2 README [below](#usage-example). Here is
 * Change your "uses" line to `gitleaks/gitleaks-action@v1.6.0`
 * Set a reminder to upgrade to v2 later.
 
+</details>
+</td></tr></table>
+
 ## v2 Benefits
 If you are using Gitleaks-Action v2 to scan repos owned by an [Organization](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#organization-accounts),
-you will find that you need to [acquire a GITEAKS_LICENSE](https://gitleaks.io/products.html) in order for the action to run. A license to scan 1 repo is
+you will find that you need to [acquire a GITEAKS_LICENSE](https://gitleaks.io/products.html) in order for the action to run. A ["Starter" license](https://gitleaks.io/products.html#:~:text=in%20your%20inbox.-,Starter,-Free%20for%201) to scan 1 repo is
 free, but scanning more than 1 repo belonging to the same organization requires a paid license. This raises the obvious question:
 
 **_Is v2 really worth paying for?_**
 
 It's a fair question. We think that the new features and improvements in v2 deliver exceptional value for the price. We put together a list of some of the
-top reasons we think v2 is worth paying for. Expand the section below to see details.
-
-<table><tr><td>
-<details>
-<summary><em>Show/hide details</em></summary>
+top reasons we think v2 is worth paying for.
 
 #### 1. On demand scans
 You can now use `workflow_dispatch` events to trigger on demand gitleaks scans.
@@ -104,8 +97,6 @@ leaked secrets. Until now, everything associated with gitleaks has been Free and
 by 1 person. Let's be honest, that wasn't a sustainable model (and it was starting to feel like an [xkcd comic](https://xkcd.com/2347/)).
 
 By buying a `GITLEAKS_LICENSE` to use v2, you are supporting the gitleaks project as a whole and helping to ensure the longevity of the project.
-</details>
-</td></tr></table>
 
 ## Usage Example
 
@@ -142,7 +133,7 @@ jobs:
 ## Questions
 
 ### Do I need a license key?
-If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a license key. You can obtain a [free license key](https://gitleaks.io/products.html) for scanning 1 repo.
+If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a license key. You can obtain a [free "Starter" license key](https://gitleaks.io/products.html) for scanning 1 repo. Scanning more than 1 repo belonging to the same organization requires a paid license.
 
 If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required.
 
@@ -168,12 +159,32 @@ You _can_ but it is not recommended because it gives a false sense of security. 
 the security alert in the GitHub Security dashboard will show as resolved, even though the secret is still visible in the commit history. To truly address the leak,
 you should rotate the secret (and also consider re-writing the git history to remove the leak altogether).
 
+### Why is my gitleaks-action job suddenly failing?
+_6/21/2022_
+
+On June 21, 2022, we merged [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0) into the `master` branch. This was a breaking update, and we made an effort to contact as many of our users as possible via GitHub, social media, etc. If you didn't know this breaking update was coming, we sincerely apologize for the inconvenience. The good news is, remedying the job failure is straightforward! You can either:
+1. [Upgrade to v2](#how-to-upgrade-to-v2), or
+1. [Pin to an older version](#how-to-pin-to-v160)
+
+Please note that if you are scanning repos that belong to an organization, you'll have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables) to use v2 (free "Starter" license available). That might come as a surprise to my users that are accustomed to using Gitleaks-Action free of charge, so I wrote a blog post explaining how/why I decided to monetize this project: https://blog.gitleaks.io/gitleaks-llc-announcement-d7d06a52e801
+
+Finally, please see above for a summary of why I think you'll love the new v2 release: [v2 Benefits](#v2-benefits)
+
 ### How can I get a gitleaks badge on my readme?
 
 Enable this **gitleaks-action** and copy
 `<img alt="gitleaks badge" src="https://img.shields.io/badge/protected%20by-gitleaks-blue">` to your readme.
 
-### License Change
+### I really need a secret scanner, but I have no money to buy a license. What can I do?
+If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required. You can use it for free!
+
+If your organization needs a secret scanner, you still have a few options:
+* First, we do recommend writing up a brief justification for the powers-that-be at your organization, asking them to allocate budget for secret scanning. If you need help writing something up, contact us via our website: https://gitleaks.io/index.html
+* You can encourage your developers to run the gitleaks core tool as a pre-commit hook (https://github.com/zricethezav/gitleaks#pre-commit). In fact, we encourage everyone to do this anyway, even if they are also running Gitleaks-Action v2.
+* You can always pin your Gitleaks-Action yml to the last free version of Gitleaks-Action (v1.6.0). See here: [How to pin to v1.6.0](#how-to-pin-to-v160)</br>
+    **Caveat**: There are some known issues with that version, and it's no longer receiving updates. But it's better than nothing.
+
+## License Change
 Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commercial license](https://github.com/zricethezav/gitleaks-action/blob/v2/COMMERCIAL-LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
 
 
