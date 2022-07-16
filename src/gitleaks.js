@@ -100,7 +100,13 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
     "--log-level=debug",
   ];
   if (eventType == "pull_request" || eventType == "push") {
-    args.push(`--log-opts=${scanInfo.baseRef}^..${scanInfo.headRef}`);
+    if (scanInfo.baseRef == scanInfo.headRef) {
+      // if base and head refs are the same, use `--log-opts=-1` to
+      // scan only one commit
+      args.push(`--log-opts=-1`);
+    } else {
+      args.push(`--log-opts=${scanInfo.baseRef}^..${scanInfo.headRef}`);
+    }
   }
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
   let exitCode = await exec.exec("gitleaks", args, {
