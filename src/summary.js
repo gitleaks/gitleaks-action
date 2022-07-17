@@ -7,6 +7,8 @@ const { readFileSync } = require("fs");
 
 async function Write(exitCode, eventJSON) {
   const repo_url = eventJSON.repository.html_url;
+  const EXIT_CODE_NO_LEAKS_DETECTED = 0;
+  const EXIT_CODE_GITLEAKS_ERROR = 1;
   const EXIT_CODE_LEAKS_DETECTED = 2;
 
   if (exitCode == EXIT_CODE_LEAKS_DETECTED) {
@@ -42,8 +44,12 @@ async function Write(exitCode, eventJSON) {
       .addHeading("🛑 Gitleaks detected secrets 🛑")
       .addTable([resultsHeader, ...resultsRows])
       .write();
-  } else {
+  } else if (exitCode == EXIT_CODE_NO_LEAKS_DETECTED) {
     await core.summary.addHeading("No leaks detected ✅").write();
+  } else if (exitCode == EXIT_CODE_GITLEAKS_ERROR) {
+    await core.summary.addHeading(`❌ Gitleaks exited with error. Exit code [${exitCode}]`).write();
+  } else {
+    await core.summary.addHeading(`❌ Gitleaks exited with unexpected exit code [${exitCode}]`).write();
   }
 }
 
