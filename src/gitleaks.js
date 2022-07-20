@@ -189,7 +189,7 @@ async function ScanPullRequest(
         repo: repo,
         pull_number: eventJSON.number,
         body: `🛑 **gitleaks** has detected a secret with rule-id \`${results.ruleId}\` in commit ${commit_sha}
-If this secret is a true positive, please rotate the secret ASAP and rebase the commit containing the secret.`,
+If this secret is a true positive, please rotate the secret ASAP.`,
         commit_id: commit_sha,
         path: results.locations[0].physicalLocation.artifactLocation.uri,
         side: "RIGHT",
@@ -234,8 +234,8 @@ If this secret is a true positive, please rotate the secret ASAP and rebase the 
       try {
         await octokit.rest.pulls.createReviewComment(proposedComment);
       } catch (error) {
-        core.warning(`Error encountered when attempting to write a comment on PR #${eventJSON.number}. 
-Likely an issue with too large of a diff for the comment to be written. 
+        core.warning(`Error encountered when attempting to write a comment on PR #${eventJSON.number}.
+Likely an issue with too large of a diff for the comment to be written.
 All secrets that have been leaked will be reported in the summary and job artifact.`);
       }
     }
