@@ -4,6 +4,7 @@
 // If not, please visit https://gitleaks.io/COMMERCIAL-LICENSE.txt.
 
 // aws_secret= "AKIAIMNOJVGFDXXXE4OA"
+// aws_secret= "AKIAIMNOJVGFDXXXE4OA"
 
 const { Octokit } = require("@octokit/rest");
 const { readFileSync } = require("fs");
