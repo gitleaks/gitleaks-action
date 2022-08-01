@@ -70551,8 +70551,11 @@ async function start() {
   let exitCode = 0;
 
   // check gitleaks version
-  let gitleaksVersion =
-    process.env.GITLEAKS_VERSION || (await gitleaks.Latest(octokit));
+
+  let gitleaksVersion = process.env.GITLEAKS_VERSION || "8.9.0";
+  if (gitleaksVersion === "latest") {
+    gitleaksVersion = await gitleaks.Latest(octokit);
+  }
   core.info("gitleaks version: " + gitleaksVersion);
   let gitleaksPath = await gitleaks.Install(gitleaksVersion);
 
