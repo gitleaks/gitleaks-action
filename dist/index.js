@@ -69821,7 +69821,9 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
       // scan only one commit
       args.push(`--log-opts=-1`);
     } else {
-      args.push(`--log-opts=${scanInfo.baseRef}^..${scanInfo.headRef}`);
+      args.push(
+        `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
+      );
     }
   }
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
