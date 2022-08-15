@@ -201,10 +201,10 @@ async function ScanPullRequest(
         body: `🛑 **Gitleaks** has detected a secret with rule-id \`${results.ruleId}\` in commit ${commit_sha}.
 If this secret is a _true_ positive, please rotate the secret ASAP.
 
-If this secret is a _false_ positive, please add the fingerprint below to your \`.gitleaksignore\` file and commit the change to this branch:
+If this secret is a _false_ positive, you can add the fingerprint below to your \`.gitleaksignore\` file and commit the change to this branch.
 
 \`\`\`
-${fingerprint}
+echo ${fingerprint} >> .gitleaksignore
 \`\`\`
 `,
         commit_id: commit_sha,
