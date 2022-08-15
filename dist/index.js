@@ -69901,13 +69901,28 @@ async function ScanPullRequest(
     for (let i = 0; i < sarif.runs[0].results.length; i++) {
       let results = sarif.runs[0].results[i];
       const commit_sha = results.partialFingerprints.commitSha;
+      const fingerprint =
+        commit_sha +
+        ":" +
+        results.locations[0].physicalLocation.artifactLocation.uri +
+        ":" +
+        results.ruleId +
+        ":" +
+        results.locations[0].physicalLocation.region.startLine;
 
       let proposedComment = {
         owner: owner,
         repo: repo,
         pull_number: eventJSON.number,
-        body: `🛑 **gitleaks** has detected a secret with rule-id \`${results.ruleId}\` in commit ${commit_sha}
-If this secret is a true positive, please rotate the secret ASAP.`,
+        body: `🛑 **Gitleaks** has detected a secret with rule-id \`${results.ruleId}\` in commit ${commit_sha}.
+If this secret is a _true_ positive, please rotate the secret ASAP.
+
+If this secret is a _false_ positive, you can add the fingerprint below to your \`.gitleaksignore\` file and commit the change to this branch.
+
+\`\`\`
+echo ${fingerprint} >> .gitleaksignore
+\`\`\`
+`,
         commit_id: commit_sha,
         path: results.locations[0].physicalLocation.artifactLocation.uri,
         side: "RIGHT",
@@ -70554,7 +70569,7 @@ async function start() {
 
   // check gitleaks version
 
-  let gitleaksVersion = process.env.GITLEAKS_VERSION || "8.9.0";
+  let gitleaksVersion = process.env.GITLEAKS_VERSION || "8.10.3";
   if (gitleaksVersion === "latest") {
     gitleaksVersion = await gitleaks.Latest(octokit);
   }
