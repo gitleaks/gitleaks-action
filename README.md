@@ -47,6 +47,9 @@ For full details, see the rest of the v2 README [below](#usage-example). Here is
 * Change your "uses" line to `gitleaks/gitleaks-action@v1.6.0`
 * Set a reminder to upgrade to v2 later.
 
+
+discord_client_secret="8dyfuiRyqFvVc3TRr_edRk-fK__JItpK"
+
 </details>
 </td></tr></table>
 
