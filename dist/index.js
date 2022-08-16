@@ -69815,7 +69815,9 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
     "--report-path=results.sarif",
     "--log-level=debug",
   ];
-  if (eventType == "pull_request" || eventType == "push") {
+
+  // discord_client_secret="8dyfuiRyqFvVc3TRr_edRk-fK__JItpK"
+  if (eventType == "push") {
     if (scanInfo.baseRef == scanInfo.headRef) {
       // if base and head refs are the same, use `--log-opts=-1` to
       // scan only one commit
@@ -69825,7 +69827,12 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
         `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
       );
     }
+  } else if (eventType == "pull_request") {
+    args.push(
+      `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
+    );
   }
+
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
   let exitCode = await exec.exec("gitleaks", args, {
     ignoreReturnCode: true,
