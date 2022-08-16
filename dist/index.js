@@ -69816,7 +69816,6 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
     "--log-level=debug",
   ];
 
-  // discord_client_secret="8dyfuiRyqFvVc3TRr_edRk-fK__JItpK"
   if (eventType == "push") {
     if (scanInfo.baseRef == scanInfo.headRef) {
       // if base and head refs are the same, use `--log-opts=-1` to
