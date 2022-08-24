@@ -70575,7 +70575,7 @@ async function start() {
 
   // check gitleaks version
 
-  let gitleaksVersion = process.env.GITLEAKS_VERSION || "8.10.3";
+  let gitleaksVersion = process.env.GITLEAKS_VERSION || "8.11.1";
   if (gitleaksVersion === "latest") {
     gitleaksVersion = await gitleaks.Latest(octokit);
   }
