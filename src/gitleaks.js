@@ -14,6 +14,9 @@ const artifact = require("@actions/artifact");
 
 const EXIT_CODE_LEAKS_DETECTED = 2;
 
+// dummy secret
+// `const Discord_Public_Key = "e7322523fb86ed64c836a979cf8465fbd436378c653c1db38f9ae87bc62a6fd5"`
+
 // TODO: Make a gitleaks class with an octokit attribute so we don't have to pass in the octokit to every method.
 
 // Install will download the version of gitleaks specified in GITLEAKS_VERSION
