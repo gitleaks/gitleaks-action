@@ -123,7 +123,6 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
   let exitCode = await exec.exec("gitleaks", args, {
     ignoreReturnCode: true,
     outStream: process.stdout,
-    env: ["FORCE_COLOR=3"],
     delay: 60 * 1000,
   });
   core.setOutput("exit-code", exitCode);
