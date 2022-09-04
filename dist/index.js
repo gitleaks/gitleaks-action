@@ -70564,7 +70564,7 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
   let exitCode = await exec.exec("gitleaks", args, {
     ignoreReturnCode: true,
-    outStream: process.stdout,
+    outStream: process.stderr,
     delay: 60 * 1000,
   });
   core.setOutput("exit-code", exitCode);
