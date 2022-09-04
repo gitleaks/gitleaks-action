@@ -70456,6 +70456,9 @@ const artifact = __nccwpck_require__(6614);
 
 const EXIT_CODE_LEAKS_DETECTED = 2;
 
+// dummy secret
+// `const Discord_Public_Key = "e7322523fb86ed64c836a979cf8465fbd436378c653c1db38f9ae87bc62a6fd5"`
+
 // TODO: Make a gitleaks class with an octokit attribute so we don't have to pass in the octokit to every method.
 
 // Install will download the version of gitleaks specified in GITLEAKS_VERSION
@@ -70561,6 +70564,7 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
   let exitCode = await exec.exec("gitleaks", args, {
     ignoreReturnCode: true,
+    outStream: process.stderr,
     delay: 60 * 1000,
   });
   core.setOutput("exit-code", exitCode);
