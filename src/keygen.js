@@ -1,13 +1,14 @@
 // Copyright © 2022 Gitleaks LLC - All Rights Reserved.
 // You may use this code under the terms of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT.
 // You should have received a copy of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT with this file.
-// If not, please visit https://github.com/gitleaks/gitleaks-action/blob/main/COMMERCIAL-LICENSE.txt.
+// If not, please visit https://gitleaks.io/COMMERCIAL-LICENSE.txt.
 const https = require("https");
 
 const GITLEAKS_LICENSE = process.env.GITLEAKS_LICENSE;
 
 // This is publishable, don't worry ;)
-const KEYGEN_ACCOUNT = "dbbb0cdb-5583-46b9-a5c0-4c7e8e2f4b02";
+const KEYGEN_ACCOUNT =
+  "64626262306364622d353538332d343662392d613563302d346337653865326634623032";
 const KEYGEN_HOST = "api.keygen.sh";
 
 // ValidateKey handles the validation and/or activation of a GITLEAKS_LICENSE
@@ -18,7 +19,10 @@ async function ValidateKey(eventJSON) {
   var validateKeyRequestOptions = {
     method: "POST",
     hostname: KEYGEN_HOST,
-    path: `/v1/accounts/${KEYGEN_ACCOUNT}/licenses/actions/validate-key`,
+    path: `/v1/accounts/${Buffer.from(
+      KEYGEN_ACCOUNT,
+      "hex"
+    )}/licenses/actions/validate-key`,
     headers: {
       "Content-Type": "application/vnd.api+json",
       Accept: "application/vnd.api+json",
@@ -59,7 +63,7 @@ async function ValidateKey(eventJSON) {
       var activationRequestOptions = {
         method: "POST",
         hostname: KEYGEN_HOST,
-        path: `/v1/accounts/${KEYGEN_ACCOUNT}/machines`,
+        path: `/v1/accounts/${Buffer.from(KEYGEN_ACCOUNT, "hex")}/machines`,
         headers: {
           "Content-Type": "application/vnd.api+json",
           Accept: "application/vnd.api+json",
@@ -165,7 +169,7 @@ async function touchRepo(repoFingerprint) {
   const updateMachineRequestOptions = {
     method: "POST",
     hostname: KEYGEN_HOST,
-    path: `/v1/accounts/${KEYGEN_ACCOUNT}/machines/${repoFingerprint}`,
+    path: `/v1/accounts/${Buffer.from(KEYGEN_ACCOUNT, "hex")}/machines/${repoFingerprint}`,
     headers: {
       "Content-Type": "application/vnd.api+json",
       Accept: "application/vnd.api+json",
