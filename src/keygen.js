@@ -1,17 +1,16 @@
 // Copyright © 2022 Gitleaks LLC - All Rights Reserved.
 // You may use this code under the terms of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT.
 // You should have received a copy of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT with this file.
-// If not, please visit https://gitleaks.io/COMMERCIAL-LICENSE.txt.
+// If not, please visit https://github.com/gitleaks/gitleaks-action/blob/main/COMMERCIAL-LICENSE.txt.
 const https = require("https");
 
 const GITLEAKS_LICENSE = process.env.GITLEAKS_LICENSE;
 
 // This is publishable, don't worry ;)
-const KEYGEN_ACCOUNT =
-  "64626262306364622d353538332d343662392d613563302d346337653865326634623032";
+const KEYGEN_ACCOUNT = "***REMOVED***";
 const KEYGEN_HOST = "api.keygen.sh";
 
-// validateKey handles the validation and/or activation of a GITLEAKS_LICENSE
+// ValidateKey handles the validation and/or activation of a GITLEAKS_LICENSE
 // key if one is available.
 async function ValidateKey(eventJSON) {
   const REPO_FINGERPRINT =
@@ -19,17 +18,13 @@ async function ValidateKey(eventJSON) {
   var validateKeyRequestOptions = {
     method: "POST",
     hostname: KEYGEN_HOST,
-    path: `/v1/accounts/${Buffer.from(
-      KEYGEN_ACCOUNT,
-      "hex"
-    )}/licenses/actions/validate-key`,
+    path: `/v1/accounts/${KEYGEN_ACCOUNT}/licenses/actions/validate-key`,
     headers: {
       "Content-Type": "application/vnd.api+json",
       Accept: "application/vnd.api+json",
     },
   };
 
-  // TODO add machines(repo) info to validate
   var validateKeyRequestData = JSON.stringify({
     meta: {
       key: `${GITLEAKS_LICENSE}`,
@@ -45,6 +40,9 @@ async function ValidateKey(eventJSON) {
   switch (validateKeyResponse.meta.constant) {
     case "VALID":
       console.log("👍 license valid");
+
+      touchRepo(REPO_FINGERPRINT); // AW: No await needed...I think
+
       return;
     case "TOO_MANY_MACHINES":
       console.error(
@@ -54,12 +52,14 @@ async function ValidateKey(eventJSON) {
     case "FINGERPRINT_SCOPE_MISMATCH":
     case "NO_MACHINES": // Intentional fall-through
     case "NO_MACHINE":
+      // TODO(AW) For readability, consider pulling this case into a separate method: activateRepo()
+
       // If no machines are associated with the license, but the license exists and is not expired
       // then we can try to activate a "machine", or repo, for the license.
       var activationRequestOptions = {
         method: "POST",
         hostname: KEYGEN_HOST,
-        path: `/v1/accounts/${Buffer.from(KEYGEN_ACCOUNT, "hex")}/machines`,
+        path: `/v1/accounts/${KEYGEN_ACCOUNT}/machines`,
         headers: {
           "Content-Type": "application/vnd.api+json",
           Accept: "application/vnd.api+json",
@@ -136,6 +136,7 @@ async function ValidateKey(eventJSON) {
   }
 }
 
+// TODO(AW) Consider making this function async
 function doRequest(options, data) {
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
@@ -158,6 +159,24 @@ function doRequest(options, data) {
     req.write(data);
     req.end();
   });
+}
+
+async function touchRepo(repoFingerprint) {
+  const updateMachineRequestOptions = {
+    method: "POST",
+    hostname: KEYGEN_HOST,
+    path: `/v1/accounts/${KEYGEN_ACCOUNT}/machines/${repoFingerprint}`,
+    headers: {
+      "Content-Type": "application/vnd.api+json",
+      Accept: "application/vnd.api+json",
+    },
+  };
+
+  const updateMachineRequestData = JSON.stringify({
+    data: {},
+  });
+
+  doRequest(updateMachineRequestOptions, updateMachineRequestData);
 }
 
 module.exports.ValidateKey = ValidateKey;
