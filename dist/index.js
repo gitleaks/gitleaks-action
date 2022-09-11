@@ -71222,6 +71222,17 @@ let eventJSON = JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH, "utf8"));
 
 // Examples of event types: "workflow_dispatch", "push", "pull_request", etc
 const eventType = process.env.GITHUB_EVENT_NAME;
+const supportedEvents = [
+  "push",
+  "pull_request",
+  "workflow_dispatch",
+  "schedule",
+];
+
+if (!supportedEvents.includes(eventType)) {
+  core.error(`ERROR: The [${eventType}] event is not yet supported`);
+  process.exit(1);
+}
 
 // Determine if the github user is an individual or an organization
 let githubUsername = "";
@@ -71315,13 +71326,6 @@ octokit
 // start validates the license first and then starts the scan
 // if license is valid
 async function start() {
-  const supportedEvents = ["push", "pull_request", "workflow_dispatch"];
-
-  if (!supportedEvents.includes(eventType)) {
-    core.error(`ERROR: The [${eventType}] event is not yet supported`);
-    process.exit(1);
-  }
-
   // validate key first
   if (shouldValidate) {
     await keygen.ValidateKey(eventJSON);
