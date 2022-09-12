@@ -71309,6 +71309,7 @@ octokit
         .then((repo) => {
           eventJSON.repository.full_name = repo.data.full_name;
           eventJSON.repository.node_id = repo.data.node_id;
+          eventJSON.repository.html_url = repo.data.html_url;
         })
         .catch((err) => {
           core.error(
