@@ -5,7 +5,12 @@
 
 # CAUTION: This is for testing purposes.
 name: gitleaks-action-HEAD
-on: [pull_request, push, workflow_dispatch]
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
 jobs:
   scan:
     name: gitleaks-action-HEAD

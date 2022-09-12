@@ -29,15 +29,40 @@ if (
 }
 
 // Event JSON example: https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#webhook-payload-example-32
-const eventJSON = JSON.parse(
-  readFileSync(process.env.GITHUB_EVENT_PATH, "utf8")
-);
+let eventJSON = JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH, "utf8"));
 
 // Examples of event types: "workflow_dispatch", "push", "pull_request", etc
 const eventType = process.env.GITHUB_EVENT_NAME;
+const supportedEvents = [
+  "push",
+  "pull_request",
+  "workflow_dispatch",
+  "schedule",
+];
+
+if (!supportedEvents.includes(eventType)) {
+  core.error(`ERROR: The [${eventType}] event is not yet supported`);
+  process.exit(1);
+}
 
 // Determine if the github user is an individual or an organization
-const githubUsername = eventJSON.repository.owner.login;
+let githubUsername = "";
+
+// eventJSON.repository is undefined for scheduled events
+if (eventType == "schedule") {
+  githubUsername = process.env.GITHUB_REPOSITORY_OWNER;
+  eventJSON.repository = {
+    owner: {
+      login: process.env.GITHUB_REPOSITORY_OWNER,
+    },
+  };
+  let repoName = process.env.GITHUB_REPOSITORY;
+  repoName = repoName.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "");
+  // update repo name
+  process.env.GITHUB_REPOSITORY = repoName;
+} else {
+  githubUsername = eventJSON.repository.owner.login;
+}
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -86,21 +111,32 @@ octokit
       );
       process.exit(1);
     }
-
-    // start the scan
-    start();
+    if (eventType == "schedule") {
+      octokit
+        .request("GET /repos/{owner}/{repo}", {
+          owner: githubUsername,
+          repo: process.env.GITHUB_REPOSITORY,
+        })
+        .then((repo) => {
+          eventJSON.repository.full_name = repo.data.full_name;
+          eventJSON.repository.node_id = repo.data.node_id;
+        })
+        .catch((err) => {
+          core.error(
+            `Get repo [${githubUsername}/${process.env.GITHUB_REPOSITORY_NAME}] failed with error [${err}].`
+          );
+        })
+        .finally(() => {
+          start();
+        });
+    } else {
+      start();
+    }
   });
 
 // start validates the license first and then starts the scan
 // if license is valid
 async function start() {
-  const supportedEvents = ["push", "pull_request", "workflow_dispatch"];
-
-  if (!supportedEvents.includes(eventType)) {
-    core.error(`ERROR: The [${eventType}] event is not yet supported`);
-    process.exit(1);
-  }
-
   // validate key first
   if (shouldValidate) {
     await keygen.ValidateKey(eventJSON);
@@ -143,7 +179,7 @@ async function start() {
       scanInfo,
       eventType
     );
-  } else if (eventType === "workflow_dispatch") {
+  } else if (eventType === "workflow_dispatch" || eventType === "schedule") {
     exitCode = await gitleaks.Scan(
       gitleaksEnableUploadArtifact,
       scanInfo,
