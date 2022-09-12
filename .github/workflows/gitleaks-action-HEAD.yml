@@ -9,8 +9,8 @@ on:
   pull_request:
   push:
   workflow_dispatch:
-  # schedule:
-  #   - cron: "*/5 * * * *"
+  schedule:
+    - cron: "*/5 * * * *"
 jobs:
   scan:
     name: gitleaks-action-HEAD

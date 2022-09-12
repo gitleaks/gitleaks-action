@@ -78,6 +78,9 @@ octokit
   })
   .then((user) => {
     const githubUserType = user.data.type;
+    if (eventType == "schedule") {
+      eventJSON.repository.owner.node_id = user.data.node_id;
+    }
 
     switch (githubUserType) {
       case "Organization":
