@@ -102,7 +102,12 @@ By buying a `GITLEAKS_LICENSE` to use v2, you are supporting the gitleaks projec
 
 ```yml
 name: gitleaks
-on: [pull_request, push, workflow_dispatch]
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * *" # run once a day at 4 AM
 jobs:
   scan:
     name: gitleaks
