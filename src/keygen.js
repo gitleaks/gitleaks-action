@@ -44,6 +44,7 @@ async function ValidateKey(eventJSON) {
   switch (validateKeyResponse.meta.constant) {
     case "VALID":
       console.log("👍 license valid");
+      console.debug(`validateKeyResponse: ${JSON.stringify(validateKeyResponse)}`);
 
       touchRepo(REPO_FINGERPRINT); // AW: No await needed...I think
 
