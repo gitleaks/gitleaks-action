@@ -115,16 +115,17 @@ async function ValidateKey(eventJSON) {
 
       console.debug(`Response: ${JSON.stringify(activationResponse)}`); // TODO: Consider removing or moving this log.
 
-      if (activationResponse.status == 201) {
+      if (activationResponse.statusCode == 201) {
         console.log(
           `Successfully added repo [${activationResponse.data.attributes.name}] to license.`
         );
-        return 201;
       } else {
-        console.log(
-          `Activation response returned status [${activationResponse.status}].`
+        console.error(
+          `Activation response returned unexpected status [${activationResponse.statusCode}].`
         );
       }
+
+      return activationResponse.statusCode;
       break;
     default:
       console.error(
@@ -147,7 +148,10 @@ function doRequest(options, data) {
       });
 
       res.on("end", () => {
-        resolve(JSON.parse(responseBody));
+        var jsonResponse = JSON.parse(responseBody);
+        jsonResponse.statusCode = res.statusCode;
+        jsonResponse.headers = res.headers;
+        resolve(jsonResponse);
       });
     });
 
