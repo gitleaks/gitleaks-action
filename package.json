@@ -1,12 +1,19 @@
 {
   "dependencies": {
+    "@actions/artifact": "^1.1.0",
     "@actions/cache": "^2.0.2",
     "@actions/core": "1.9.1",
     "@actions/exec": "^1.1.1",
-    "@actions/artifact": "^1.1.0",
     "@actions/tool-cache": "^1.7.2",
     "@octokit/rest": "^18.12.0"
   },
   "license": "SEE LICENSE IN COMMERCIAL-LICENSE.txt",
-  "name": "gitleaks-github-action"
+  "name": "gitleaks-github-action",
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^10.0.0"
+  }
 }
