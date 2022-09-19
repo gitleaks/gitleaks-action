@@ -1,6 +1,6 @@
-const chai = require("chai");
-// const { spawnSync } = require("node:child_process");
-const spawn = require('cross-spawn');
+var should = require("chai").should;
+const spawn = require('cross-spawn'); // Using cross-spawn instead of node:child_process because of cross-platform
+                                      // issues such as https://stackoverflow.com/q/37125619
 const fetch = require("node-fetch");
 const path = require("node:path");
 
@@ -74,6 +74,87 @@ describe("Unlimited license with hearbeat", function () {
 
   it("Running with no license should fail", function () {
     this.timeout(0);
+
+    const actArgs = [
+      "pull_request",
+      `--secret GITHUB_TOKEN="${process.env.GITHUB_TOKEN}"`,
+      
+      `--workflows "${path.join(
+        "test",
+        ".github",
+        "workflows",
+        "local-action.yml"
+      )}"`,
+      `--eventpath "${path.join(
+        "test",
+        "events",
+        "example-pull-request-event-no-secrets.json"
+      )}"`,
+      `--env GITHUB_STEP_SUMMARY=/dev/stdout`,
+    ];
+
+    const actCommand = 'act ' + actArgs.join(' ');
+
+    console.log(`Running command [${actCommand}]`);
+    actResult = spawn.sync(actCommand);
+
+    if (actResult.error) {
+      console.error(`act error: ${actResult.error}`);
+    }
+
+    console.log(`stdout: ${actResult.stdout}`);
+    console.log(`stderr: ${actResult.stderr}`);
+
+    console.log(
+      `act terminated with exit code [${actResult.status}] due to signal [${actResult.signal}].`
+    );
+
+    actResult.status.should.equal(1);
+    // actResult.stdout.should.contain('');
+  });
+
+  it("Running with wrong license should fail", function () {
+    this.timeout(0);
+    
+    const actArgs = [
+      "pull_request",
+      `--secret GITHUB_TOKEN="${process.env.GITHUB_TOKEN}"`,
+      `--secret GITLEAKS_LICENSE="fake-license"`,
+      `--workflows "${path.join(
+        "test",
+        ".github",
+        "workflows",
+        "local-action.yml"
+      )}"`,
+      `--eventpath "${path.join(
+        "test",
+        "events",
+        "example-pull-request-event-no-secrets.json"
+      )}"`,
+      `--env GITHUB_STEP_SUMMARY=/dev/stdout`,
+    ];
+
+    const actCommand = 'act ' + actArgs.join(' ');
+
+    console.log(`Running command [${actCommand}]`);
+    actResult = spawn.sync(actCommand);
+
+    if (actResult.error) {
+      console.error(`act error: ${actResult.error}`);
+    }
+
+    console.log(`stdout: ${actResult.stdout}`);
+    console.log(`stderr: ${actResult.stderr}`);
+
+    console.log(
+      `act terminated with exit code [${actResult.status}] due to signal [${actResult.signal}].`
+    );
+
+    actResult.status.should.equal(1);
+  });
+
+  it("Running with license should succeed", function () {
+    this.timeout(0);
     
     const actArgs = [
       "pull_request",
@@ -108,13 +189,49 @@ describe("Unlimited license with hearbeat", function () {
     console.log(
       `act terminated with exit code [${actResult.status}] due to signal [${actResult.signal}].`
     );
+
+    actResult.status.should.equal(0);
   });
 
-  it("Running with wrong license should fail", function () {});
+  it("Running with same license and repo again should succeed", function () {
+    this.timeout(0);
+    
+    const actArgs = [
+      "pull_request",
+      `--secret GITHUB_TOKEN="${process.env.GITHUB_TOKEN}"`,
+      `--secret GITLEAKS_LICENSE="${this.LICENSE_ID}"`,
+      `--workflows "${path.join(
+        "test",
+        ".github",
+        "workflows",
+        "local-action.yml"
+      )}"`,
+      `--eventpath "${path.join(
+        "test",
+        "events",
+        "example-pull-request-event-no-secrets.json"
+      )}"`,
+      `--env GITHUB_STEP_SUMMARY=/dev/stdout`,
+    ];
 
-  it("Running with license should succeed", function () {});
+    const actCommand = 'act ' + actArgs.join(' ');
 
-  it("Running with license again should succeed", function () {});
+    console.log(`Running command [${actCommand}]`);
+    actResult = spawn.sync(actCommand);
+
+    if (actResult.error) {
+      console.error(`act error: ${actResult.error}`);
+    }
+
+    console.log(`stdout: ${actResult.stdout}`);
+    console.log(`stderr: ${actResult.stderr}`);
+
+    console.log(
+      `act terminated with exit code [${actResult.status}] due to signal [${actResult.signal}].`
+    );
+
+    actResult.status.should.equal(0);
+  });
 
   it("Running with expired heartbeat should reactivate machine and succeed", function () {});
 
