@@ -1,12 +1,11 @@
 const chai = require("chai");
-const { exec } = require("node:child_process");
+// const { spawnSync } = require("node:child_process");
+const spawn = require('cross-spawn');
 const fetch = require("node-fetch");
 const path = require("node:path");
 
-describe("Unlimited license with hearbeat", () => {
-  let LICENSE_ID;
-
-  before(() => {
+describe("Unlimited license with hearbeat", function () {
+  before(function () {
     if (!process.env.KEYGEN_ACCOUNT) {
       throw new Error(`KEYGEN_ACCOUNT environment variable must be set.`);
     }
@@ -33,7 +32,7 @@ describe("Unlimited license with hearbeat", () => {
     const policyUnlimitedWithHeartbeart =
       "5713ea99-6167-430b-8b64-e8e74b1a01d5";
 
-    fetch(
+    return fetch(
       `https://api.keygen.sh/v1/accounts/${process.env.KEYGEN_ACCOUNT}/licenses`,
       {
         method: "POST",
@@ -65,62 +64,68 @@ describe("Unlimited license with hearbeat", () => {
       }
     ).then((response) => {
       response.json().then(({ data, errors }) => {
-        console.log(`data [${JSON.stringify(data)}]`);
-        console.error(`errors [${JSON.stringify(errors)}]`);
+        console.log(`create license response data [${JSON.stringify(data)}]`);
+        console.error(`create license response errors [${JSON.stringify(errors)}]`);
 
-        LICENSE_ID = data.id;
+        this.LICENSE_ID = data.id;
       });
     });
-
-    // Store license as env variable
   });
 
-  it("Running with no license should fail", () => {
-    const actCommand = `act pull_request --secret GITHUB_TOKEN="${
-      process.env.GITHUB_TOKEN
-    }"
-            --secret GITLEAKS_LICENSE="${process.env.GITLEAKS_LICENSE}"
-            --workflows="${path.join(
-              ".github",
-              "workflows",
-              "local-action.yml"
-            )}"
-            --eventpath="${path.join(
-              "events",
-              "example-pull-request-event-no-secrets.json"
-            )}"
-            --env=GITHUB_STEP_SUMMARY=/dev/stdout`;
+  it("Running with no license should fail", function () {
+    this.timeout(0);
+    
+    const actArgs = [
+      "pull_request",
+      `--secret GITHUB_TOKEN="${process.env.GITHUB_TOKEN}"`,
+      `--secret GITLEAKS_LICENSE="${this.LICENSE_ID}"`,
+      `--workflows "${path.join(
+        "test",
+        ".github",
+        "workflows",
+        "local-action.yml"
+      )}"`,
+      `--eventpath "${path.join(
+        "test",
+        "events",
+        "example-pull-request-event-no-secrets.json"
+      )}"`,
+      `--env GITHUB_STEP_SUMMARY=/dev/stdout`,
+    ];
 
-    const act = exec(actCommand, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`exec error: ${error}`);
-      }
+    const actCommand = 'act ' + actArgs.join(' ');
 
-      console.log(`stdout: ${stdout}`);
-      console.log(`stderr: ${stderr}`);
-    });
+    console.log(`Running command [${actCommand}]`);
+    actResult = spawn.sync(actCommand);
 
-    act.on("close", (code, signal) => {
-      console.log(
-        `act terminated with exit code [${code}] due to signal [${signal}].`
-      );
-    });
+    if (actResult.error) {
+      console.error(`act error: ${actResult.error}`);
+    }
+
+    console.log(`stdout: ${actResult.stdout}`);
+    console.log(`stderr: ${actResult.stderr}`);
+
+    console.log(
+      `act terminated with exit code [${actResult.status}] due to signal [${actResult.signal}].`
+    );
   });
 
-  it("Running with wrong license should fail", () => {});
+  it("Running with wrong license should fail", function () {});
 
-  it("Running with license should succeed", () => {});
+  it("Running with license should succeed", function () {});
 
-  it("Running with license again should succeed", () => {});
+  it("Running with license again should succeed", function () {});
 
-  it("Running with expired heartbeat should reactivate machine and succeed", () => {});
+  it("Running with expired heartbeat should reactivate machine and succeed", function () {});
 
-  after(() => {
+  after(function () {
     // Delete machine
 
     // Delete license
-    const response = fetch(
-      `https://api.keygen.sh/v1/accounts/{ACCOUNT}/licenses/${LICENSE_ID}`,
+    console.log(`Running DELETE [${this.LICENSE_ID}]`);
+
+    return fetch(
+      `https://api.keygen.sh/v1/accounts/${process.env.KEYGEN_ACCOUNT}/licenses/${this.LICENSE_ID}`,
       {
         method: "DELETE",
         headers: {
@@ -130,8 +135,9 @@ describe("Unlimited license with hearbeat", () => {
       }
     ).then((response) => {
       response.json().then(({ data, errors }) => {
-        console.log(`data [${JSON.stringify(data)}]`);
-        console.error(`errors [${JSON.stringify(errors)}]`);
+        console.log(`got response status [${response.status}]`);
+        console.log(`delete license response data [${JSON.stringify(data)}]`);
+        console.error(`delete license response errors [${JSON.stringify(errors)}]`);
       });
     });
   });

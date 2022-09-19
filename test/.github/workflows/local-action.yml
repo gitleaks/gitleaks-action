@@ -10,7 +10,7 @@ jobs:
     name: gitleaks
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - uses: ./  # Runs whatever github action is in root dir of the repo checked out on the line above.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
