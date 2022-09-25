@@ -257,7 +257,7 @@ echo ${fingerprint} >> .gitleaksignore
       try {
         await octokit.rest.pulls.createReviewComment(proposedComment);
       } catch (error) {
-        core.warning(`Error encountered when attempting to write a comment on PR #${eventJSON.number}.
+        core.warning(`Error encountered when attempting to write a comment on PR #${eventJSON.number}: ${error}
 Likely an issue with too large of a diff for the comment to be written.
 All secrets that have been leaked will be reported in the summary and job artifact.`);
       }
