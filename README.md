@@ -17,86 +17,7 @@
     </a>
 </p>
 
-Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos. Gitleaks is an easy-to-use, all-in-one solution for detecting secrets, past or present, in your code. Enable **Gitleaks-Action** in your GitHub workflows to be alerted when secrets are leaked as soon as they happen.
-
-## Announcements
-### 📢 Release of Gitleaks-Action v2
-_6/13/2022_
-
-<table><tr><td>
-<details>
-<summary><em>Show/hide details</em></summary>
-
-On June 2, 2022, we released [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0). There are a boatload of improvements
-in v2, but it also represents a breaking change from the prior version (v1.6.0). We haven't merged v2 to the `master` branch yet because we noticed that
-many users of Gitleaks Action don't pin their version. If you are using `zricethezav/gitleaks-action@master` (or now `gitleaks/gitleaks-action@master`),
-then as soon as we merge v2 to master, your jobs will start failing.
-
-We are planning to complete the merge on **June 20, 2022**. We recommend updating your .yml files to use v2 now so you aren't scrambling to do it after
-your gitleaks-action jobs start failing. As an alternative, you can pin your version to v1.6.0 for now, if you aren't ready to upgrade at the moment.
-
-#### How to upgrade to v2
-
-For full details, see the rest of the v2 README [below](#usage-example). Here is the quick list of changes to your .yml:
-* Change the "uses" line to `- uses: gitleaks/gitleaks-action@v2`
-* Add an `env:` section with `GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}`
-* If you are scanning repos that belong to an organization, you'll also have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables),
-  add the license to your GitHub Secrets, and add this line to the `env:` section: `GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}}`
-
-#### How to pin to v1.6.0
-* Change your "uses" line to `gitleaks/gitleaks-action@v1.6.0`
-* Set a reminder to upgrade to v2 later.
-
-</details>
-</td></tr></table>
-
-## v2 Benefits
-If you are using Gitleaks-Action v2 to scan repos owned by an [Organization](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#organization-accounts),
-you will find that you need to [acquire a GITEAKS_LICENSE](https://gitleaks.io/products.html) in order for the action to run. A ["Starter" license](https://gitleaks.io/products.html#:~:text=in%20your%20inbox.-,Starter,-Free%20for%201) to scan 1 repo is
-free, but scanning more than 1 repo belonging to the same organization requires a paid license. This raises the obvious question:
-
-**_Is v2 really worth paying for?_**
-
-It's a fair question. We think that the new features and improvements in v2 deliver exceptional value for the price. We put together a list of some of the
-top reasons we think v2 is worth paying for.
-
-#### 1. On demand scans
-You can now use `workflow_dispatch` events to trigger on demand gitleaks scans.
-
-<img width="816" alt="Screen Shot 2022-05-30 at 8 30 31 PM" src="https://user-images.githubusercontent.com/15034943/171079785-4040ebc1-d353-4fa6-8c62-d19c806e372a.png">
-
-#### 2. Gitleaks report artifact uploads
-Not much more to say here. Download reports when leaks are present. Pretty useful feature.
-
-<img width="1056" alt="Screen Shot 2022-05-30 at 9 20 36 PM" src="https://user-images.githubusercontent.com/15034943/171079991-387f2c1d-a8fd-4e5a-82aa-9f03b0c51b75.png">
-
-#### 3. Powered by the latest version of Gitleaks
-The latest version of gitleaks (v8.8.6 at the time of writing) has better performance, more configuration options, and is more accurate than the previous major version.
-
-#### 4. Job summaries
-Easy to understand report of a Gitleaks job. If no leaks are detected you'll see:
-
-<img width="1054" alt="Screen Shot 2022-05-30 at 9 26 10 PM" src="https://user-images.githubusercontent.com/15034943/171080569-208da9fe-fb76-4d81-97f0-8adbd77febe4.png">
-
-
-If leaks are detected you'll see something like:
-
-<img width="1056" alt="Screen Shot 2022-05-30 at 8 41 07 PM" src="https://user-images.githubusercontent.com/15034943/171079699-a9a11f44-1579-4a70-86e7-eadedc29eda9.png">
-
-#### 5. Faster job times
-Gitleaks-Action Version 2 does not rely on Docker build anymore.
-
-#### 6. Pull Request Comments
-If a leak is encountered during a pull request, gitleaks-action will comment on the line number and commit containing the secret.
-
-<img width="912" alt="Screen Shot 2022-05-31 at 9 31 06 PM" src="https://user-images.githubusercontent.com/15034943/171316255-575f92f3-15a3-472d-a56a-3cf30a25ffbc.png">
-
-#### 7. Ensure Project Longevity
-Gitleaks is used by thousands (millions?) of developers around the world. It is used by individuals, governments, and corporations to prevent and detect
-leaked secrets. Until now, everything associated with gitleaks has been Free and Open Source under the MIT License, maintained primarily as a side project
-by 1 person. Let's be honest, that wasn't a sustainable model (and it was starting to feel like an [xkcd comic](https://xkcd.com/2347/)).
-
-By buying a `GITLEAKS_LICENSE` to use v2, you are supporting the gitleaks project as a whole and helping to ensure the longevity of the project.
+Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos. Gitleaks is an easy-to-use, all-in-one solution for detecting secrets, past or present, in your code. Enable **Gitleaks-Action** in your GitHub workflows to be alerted when secrets are leaked as soon as they happen. Check out a demo [here](https://user-images.githubusercontent.com/15034943/178513034-de5a1906-b71d-454a-a792-47b7ac0e21e6.gif), see what's new in v2 [here](v2.md).
 
 ## Usage Example
 
@@ -135,6 +56,7 @@ jobs:
 - `GITLEAKS_ENABLE_UPLOAD_ARTIFACT` (optional): Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets. Defaults to `true`.
 - `GITLEAKS_ENABLE_SUMMARY` (optional): Boolean value to enable or disable gitleaks job summary. Defaults to `true`.
 ---
+
 ## Questions
 
 ### Do I need a license key?
