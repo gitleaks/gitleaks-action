@@ -44,8 +44,8 @@ jobs:
 ```
 
 ## Visual Example
+![gitleaks-action](https://user-images.githubusercontent.com/15034943/193462170-7314a63b-1c37-4c9e-ac93-33d6d3fc561a.png)
 
-![gitleaks-action](https://user-images.githubusercontent.com/15034943/193461820-de2d9659-124b-45d3-b851-44cc41319cf1.png)
 
 ---
 ### Environment Variables:
