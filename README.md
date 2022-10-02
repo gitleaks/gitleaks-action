@@ -91,8 +91,8 @@ you should rotate the secret (and also consider re-writing the git history to re
 _6/21/2022_
 
 On June 21, 2022, we merged [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0) into the `master` branch. This was a breaking update, and we made an effort to contact as many of our users as possible via GitHub, social media, etc. If you didn't know this breaking update was coming, we sincerely apologize for the inconvenience. The good news is, remedying the job failure is straightforward! You can either:
-1. [Upgrade to v2](#how-to-upgrade-to-v2), or
-1. [Pin to an older version](#how-to-pin-to-v160)
+1. [Upgrade to v2](v2.md#how-to-upgrade-to-v2), or
+1. [Pin to an older version](v2.md#how-to-pin-to-v160)
 
 Please note that if you are scanning repos that belong to an organization, you'll have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables) to use v2 (free "Starter" license available). That might come as a surprise to my users that are accustomed to using Gitleaks-Action free of charge, so I wrote a blog post explaining how/why I decided to monetize this project: https://blog.gitleaks.io/gitleaks-llc-announcement-d7d06a52e801
 
