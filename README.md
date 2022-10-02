@@ -96,7 +96,7 @@ On June 21, 2022, we merged [Gitleaks Action v2](https://github.com/gitleaks/git
 
 Please note that if you are scanning repos that belong to an organization, you'll have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables) to use v2 (free "Starter" license available). That might come as a surprise to my users that are accustomed to using Gitleaks-Action free of charge, so I wrote a blog post explaining how/why I decided to monetize this project: https://blog.gitleaks.io/gitleaks-llc-announcement-d7d06a52e801
 
-Finally, please see above for a summary of why I think you'll love the new v2 release: [v2 Benefits](#v2-benefits)
+Finally, please see above for a summary of why I think you'll love the new v2 release: [v2 Benefits](v2.md#v2-benefits)
 
 ### How can I get a gitleaks badge on my readme?
 
@@ -109,7 +109,7 @@ If you are scanning repos that belong to [a personal account](https://docs.githu
 If your organization needs a secret scanner, you still have a few options:
 * First, we do recommend writing up a brief justification for the powers-that-be at your organization, asking them to allocate budget for secret scanning. If you need help writing something up, contact us via our website: https://gitleaks.io/index.html
 * You can encourage your developers to run the gitleaks core tool as a pre-commit hook (https://github.com/zricethezav/gitleaks#pre-commit). In fact, we encourage everyone to do this anyway, even if they are also running Gitleaks-Action v2.
-* You can always pin your Gitleaks-Action yml to the last free version of Gitleaks-Action (v1.6.0). See here: [How to pin to v1.6.0](#how-to-pin-to-v160)</br>
+* You can always pin your Gitleaks-Action yml to the last free version of Gitleaks-Action (v1.6.0). See here: [How to pin to v1.6.0](v2.md#how-to-pin-to-v160)</br>
     **Caveat**: There are some known issues with that version, and it's no longer receiving updates. But it's better than nothing.
 
 ## License Change
