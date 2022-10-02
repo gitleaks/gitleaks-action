@@ -43,6 +43,10 @@ jobs:
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts.
 ```
 
+## Visual Example
+
+![gitleaks-action](https://user-images.githubusercontent.com/15034943/193461820-de2d9659-124b-45d3-b851-44cc41319cf1.png)
+
 ---
 ### Environment Variables:
 
