@@ -17,7 +17,7 @@
     </a>
 </p>
 
-Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos. Gitleaks is an easy-to-use, all-in-one solution for detecting secrets, past or present, in your code. Enable **Gitleaks-Action** in your GitHub workflows to be alerted when secrets are leaked as soon as they happen. Check out a demo [here](https://user-images.githubusercontent.com/15034943/178513034-de5a1906-b71d-454a-a792-47b7ac0e21e6.gif) or see what's new in v2 [here](v2.md). Don't forget to check out our [blog](https://blog.gitleaks.io), which details how to configure and set up Gitleaks-Action for organizations and enterprises.
+Gitleaks is a SAST tool for detecting and preventing hardcoded secrets like passwords, api keys, and tokens in git repos. Gitleaks is an easy-to-use, all-in-one solution for detecting secrets, past or present, in your code. Enable **Gitleaks-Action** in your GitHub workflows to be alerted when secrets are leaked as soon as they happen. Check out our demos [here (gif)](https://user-images.githubusercontent.com/15034943/178513034-de5a1906-b71d-454a-a792-47b7ac0e21e6.gif) and [here (.png)](https://user-images.githubusercontent.com/15034943/193462170-7314a63b-1c37-4c9e-ac93-33d6d3fc561a.png), or see what's new in v2 [here](v2.md). Don't forget to check out our [blog](https://blog.gitleaks.io), which details how to configure and set up Gitleaks-Action for organizations and enterprises.
 
 ## Usage Example
 
@@ -42,9 +42,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts.
 ```
-
-## Visual Example
-![gitleaks-action](https://user-images.githubusercontent.com/15034943/193462170-7314a63b-1c37-4c9e-ac93-33d6d3fc561a.png)
 
 
 ---
