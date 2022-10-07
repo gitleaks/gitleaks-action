@@ -78,9 +78,6 @@ octokit
   })
   .then((user) => {
     const githubUserType = user.data.type;
-    if (eventType == "schedule") {
-      eventJSON.repository.owner.node_id = user.data.node_id;
-    }
 
     switch (githubUserType) {
       case "Organization":
@@ -114,28 +111,8 @@ octokit
       );
       process.exit(1);
     }
-    if (eventType == "schedule") {
-      octokit
-        .request("GET /repos/{owner}/{repo}", {
-          owner: githubUsername,
-          repo: process.env.GITHUB_REPOSITORY,
-        })
-        .then((repo) => {
-          eventJSON.repository.full_name = repo.data.full_name;
-          eventJSON.repository.node_id = repo.data.node_id;
-          eventJSON.repository.html_url = repo.data.html_url;
-        })
-        .catch((err) => {
-          core.error(
-            `Get repo [${githubUsername}/${process.env.GITHUB_REPOSITORY_NAME}] failed with error [${err}].`
-          );
-        })
-        .finally(() => {
-          start();
-        });
-    } else {
-      start();
-    }
+
+    start();
   });
 
 // start validates the license first and then starts the scan

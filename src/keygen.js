@@ -14,8 +14,7 @@ const KEYGEN_HOST = "api.keygen.sh";
 // validateKey handles the validation and/or activation of a GITLEAKS_LICENSE
 // key if one is available.
 async function ValidateKey(eventJSON) {
-  const REPO_FINGERPRINT =
-    eventJSON.repository.owner.node_id + "|" + eventJSON.repository.node_id;
+  const REPO_FINGERPRINT = eventJSON.repository.full_name;
   var validateKeyRequestOptions = {
     method: "POST",
     hostname: KEYGEN_HOST,
