@@ -61,14 +61,14 @@ jobs:
 ## Questions
 
 ### Do I need a license key?
-If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a license key. You can obtain a [free "Starter" license key](https://gitleaks.io/products.html) for scanning 1 repo. Scanning more than 1 repo belonging to the same organization requires a paid license.
+If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a license key. You can obtain a [free "Trial" license key](https://gitleaks.io/products.html) for scanning unlimite repos for up to 2 weeks. Scanning repos after the trial license has expired requires a paid license.
 
 If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required.
 
 ### How do I get a license key?
 
 You can visit [gitleaks.io](https://gitleaks.io/products.html) to sign up for a
-free license key limited to 1 repo, or choose from a paid tier to enable scanning of additional repos.
+free trial license key for unlimited repo scanning for up to 2 weeks, or choose from a paid tier to enable scanning after the trial license has expired.
 
 ### Can I use a custom gitleaks configuration?
 
@@ -94,7 +94,7 @@ On June 21, 2022, we merged [Gitleaks Action v2](https://github.com/gitleaks/git
 1. [Upgrade to v2](v2.md#how-to-upgrade-to-v2), or
 1. [Pin to an older version](v2.md#how-to-pin-to-v160)
 
-Please note that if you are scanning repos that belong to an organization, you'll have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables) to use v2 (free "Starter" license available). That might come as a surprise to my users that are accustomed to using Gitleaks-Action free of charge, so I wrote a blog post explaining how/why I decided to monetize this project: https://blog.gitleaks.io/gitleaks-llc-announcement-d7d06a52e801
+Please note that if you are scanning repos that belong to an organization, you'll have to [acquire a GITLEAKS_LICENSE](https://github.com/gitleaks/gitleaks-action#environment-variables) to use v2 (free "Trial" license available). That might come as a surprise to my users that are accustomed to using Gitleaks-Action free of charge, so I wrote a blog post explaining how/why I decided to monetize this project: https://blog.gitleaks.io/gitleaks-llc-announcement-d7d06a52e801
 
 Finally, please see above for a summary of why I think you'll love the new v2 release: [v2 Benefits](v2.md#v2-benefits)
 
