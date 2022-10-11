@@ -61,7 +61,7 @@ jobs:
 ## Questions
 
 ### Do I need a license key?
-If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a license key. You can obtain a [free "Trial" license key](https://gitleaks.io/products.html) for scanning unlimite repos for up to 2 weeks. Scanning repos after the trial license has expired requires a paid license.
+If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a license key. You can obtain a [free "Trial" license key](https://gitleaks.io/products.html) for scanning unlimited repos for up to 2 weeks. Scanning repos after the trial license has expired requires a paid license.
 
 If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required.
 
