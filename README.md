@@ -115,6 +115,7 @@ If your organization needs a secret scanner, you still have a few options:
 ## License Change
 Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commercial license](https://github.com/zricethezav/gitleaks-action/blob/v2/COMMERCIAL-LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
 
+## Contributing
+Please see our [contributing guidelines](CONTRIBUTING.md).
 
 _Copyright © 2022 Gitleaks LLC - All Rights Reserved_
-
