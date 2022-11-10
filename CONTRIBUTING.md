@@ -4,7 +4,7 @@ Thanks for your interest in contributing to Gitleaks-Action!
 
 ## Quickstart
 * Make changes to the files in the `src` directory.
-* "Build" the dist using [ncc]([url](https://github.com/vercel/ncc)):
+* "Build" the dist using [ncc](https://github.com/vercel/ncc):
     * Use [nvm](https://github.com/nvm-sh/nvm) to select the right version of node:
     ```
     nvm use
