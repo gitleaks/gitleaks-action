@@ -15,7 +15,7 @@ Thanks for your interest in contributing to Gitleaks-Action!
     ```
     * Run the build command:
     ```
-    ncc build src/index.js
+    npx ncc build src/index.js
     ```
 * You can use [act](https://github.com/nektos/act) to test Gitleaks-Action on your local machine.
     * More info to come on this later
