@@ -70785,7 +70785,7 @@ async function ValidateKey(eventJSON) {
   );
   switch (validateKeyResponse.meta.constant) {
     case "VALID":
-      core.info("👍 license valid");
+      core.info(`👍 license valid for repo [${REPO_FINGERPRINT}]`);
       return;
     case "TOO_MANY_MACHINES":
       core.error(
@@ -71259,7 +71259,7 @@ if (eventType == "schedule") {
     owner: {
       login: process.env.GITHUB_REPOSITORY_OWNER,
     },
-    // full_name: process.env.GITHUB_REPOSITORY
+    full_name: process.env.GITHUB_REPOSITORY
   };
   let repoName = process.env.GITHUB_REPOSITORY;
   repoName = repoName.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "");

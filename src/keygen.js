@@ -44,7 +44,7 @@ async function ValidateKey(eventJSON) {
   );
   switch (validateKeyResponse.meta.constant) {
     case "VALID":
-      core.info("👍 license valid");
+      core.info(`👍 license valid for repo [${REPO_FINGERPRINT}]`);
       return;
     case "TOO_MANY_MACHINES":
       core.error(

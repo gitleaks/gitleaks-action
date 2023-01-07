@@ -55,7 +55,7 @@ if (eventType == "schedule") {
     owner: {
       login: process.env.GITHUB_REPOSITORY_OWNER,
     },
-    // full_name: process.env.GITHUB_REPOSITORY
+    full_name: process.env.GITHUB_REPOSITORY
   };
   let repoName = process.env.GITHUB_REPOSITORY;
   repoName = repoName.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "");
