@@ -121,7 +121,7 @@ octokit
 async function start() {
   // validate key first
   if (shouldValidate) {
-    core.debug(`Event JSON: ${JSON.stringify(eventJSON)}`);
+    core.debug(`eventJSON.repository.full_name: ${eventJSON.repository.full_name}`);
     await keygen.ValidateKey(eventJSON);
   }
 
