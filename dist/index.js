@@ -70580,22 +70580,21 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
   });
   core.setOutput("exit-code", exitCode);
 
-  if (exitCode == EXIT_CODE_LEAKS_DETECTED) {
-    const artifactClient = artifact.create();
-    const artifactName = "gitleaks-results.sarif";
-    const options = {
-      continueOnError: true,
-    };
+  const artifactClient = artifact.create();
+  const artifactName = "gitleaks-results.sarif";
+  const options = {
+    continueOnError: true,
+  };
 
-    if (gitleaksEnableUploadArtifact == true) {
-      await artifactClient.uploadArtifact(
-        artifactName,
-        ["results.sarif"],
-        process.env.HOME,
-        options
-      );
-    }
+  if (gitleaksEnableUploadArtifact == true) {
+    await artifactClient.uploadArtifact(
+      artifactName,
+      ["results.sarif"],
+      process.env.HOME,
+      options
+    );
   }
+
   return exitCode;
 }
 
