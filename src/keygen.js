@@ -2,6 +2,7 @@
 // You may use this code under the terms of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT.
 // You should have received a copy of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT with this file.
 // If not, please visit https://gitleaks.io/COMMERCIAL-LICENSE.txt.
+const core = require("@actions/core");
 const https = require("https");
 
 const GITLEAKS_LICENSE = process.env.GITLEAKS_LICENSE;
@@ -43,10 +44,10 @@ async function ValidateKey(eventJSON) {
   );
   switch (validateKeyResponse.meta.constant) {
     case "VALID":
-      console.log("👍 license valid");
+      core.info(`👍 license valid for repo [${REPO_FINGERPRINT}]`);
       return;
     case "TOO_MANY_MACHINES":
-      console.error(
+      core.error(
         `🛑 Cannot use gitleaks-action on this repo. Your license key has already reached its limit of [${validateKeyResponse.data.attributes.maxMachines}] repos. Go to gitleaks.io to upgrade your license to enable additional repos.`
       );
       process.exit(1);
@@ -85,8 +86,8 @@ async function ValidateKey(eventJSON) {
         },
       });
 
-      console.log(
-        "❗ this repo has not been associated with the license, attempting to activate a repo for the license"
+      core.info(
+        `❗ Repo [${REPO_FINGERPRINT}] has not been associated with the license. Attempting to activate this repo for the license...`
       );
 
       let activationResponse = await doRequest(
@@ -95,7 +96,7 @@ async function ValidateKey(eventJSON) {
       );
 
       if (activationResponse.hasOwnProperty("errors")) {
-        console.error(
+        core.error(
           `🛑 Activation request returned [${activationResponse.errors.length}] errors:`
         );
         activationResponse.errors.forEach((error) => {
@@ -104,7 +105,7 @@ async function ValidateKey(eventJSON) {
           const errorDetail = error.detail || "";
           const errorSourcePointer = error.source.pointer || "";
           const errorSourceParameter = error.source.parameter || "";
-          console.error(
+          core.error(
             `🛑 Error activating repo: ${errorCode} | ${errorTitle} | ${errorDetail} | ${errorSourcePointer} | ${errorSourceParameter}`
           );
         });
@@ -112,21 +113,21 @@ async function ValidateKey(eventJSON) {
         process.exit(1);
       }
 
-      console.debug(`Response: ${JSON.stringify(activationResponse)}`); // TODO: Consider removing or moving this log.
+      core.debug(`Response: ${JSON.stringify(activationResponse)}`); // TODO: Consider removing or moving this log.
 
       if (activationResponse.status == 201) {
-        console.log(
+        core.info(
           `Successfully added repo [${activationResponse.data.attributes.name}] to license.`
         );
         return 201;
       } else {
-        console.log(
+        core.info(
           `Activation response returned status [${activationResponse.status}].`
         );
       }
       break;
     default:
-      console.error(
+      core.error(
         `🛑 Error: Validating key returned [${JSON.stringify(
           validateKeyResponse
         )}]`
