@@ -55,7 +55,7 @@ if (eventType == "schedule") {
     owner: {
       login: process.env.GITHUB_REPOSITORY_OWNER,
     },
-    full_name: process.env.GITHUB_REPOSITORY
+    full_name: process.env.GITHUB_REPOSITORY,
   };
   let repoName = process.env.GITHUB_REPOSITORY;
   repoName = repoName.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "");
@@ -121,7 +121,9 @@ octokit
 async function start() {
   // validate key first
   if (shouldValidate) {
-    core.debug(`eventJSON.repository.full_name: ${eventJSON.repository.full_name}`);
+    core.debug(
+      `eventJSON.repository.full_name: ${eventJSON.repository.full_name}`
+    );
     await keygen.ValidateKey(eventJSON);
   }
 
@@ -131,7 +133,7 @@ async function start() {
 
   // check gitleaks version
 
-  let gitleaksVersion = process.env.GITLEAKS_VERSION || "8.12.0";
+  let gitleaksVersion = process.env.GITLEAKS_VERSION || "8.16.1";
   if (gitleaksVersion === "latest") {
     gitleaksVersion = await gitleaks.Latest(octokit);
   }
