@@ -61,14 +61,14 @@ jobs:
 ## Questions
 
 ### Do I need a license key?
-If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a license key. You can obtain a [free "Trial" license key](https://gitleaks.io/products.html) for scanning unlimited repos for up to 2 weeks. Scanning repos after the trial license has expired requires a paid license.
+If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a [free license key](https://gitleaks.io/products.html)
 
 If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required.
 
 ### How do I get a license key?
 
 You can visit [gitleaks.io](https://gitleaks.io/products.html) to sign up for a
-free trial license key for unlimited repo scanning for up to 2 weeks, or choose from a paid tier to enable scanning after the trial license has expired.
+free license key. Clicking "Sign Up" will take you to a google form where you will need to supply name, email, and company. An email with a license key will show up shortly after submission.
 
 ### Can I use a custom gitleaks configuration?
 
@@ -102,15 +102,6 @@ Finally, please see above for a summary of why I think you'll love the new v2 re
 
 Enable this **gitleaks-action** and copy
 `<img alt="gitleaks badge" src="https://img.shields.io/badge/protected%20by-gitleaks-blue">` to your readme.
-
-### I really need a secret scanner, but I have no money to buy a license. What can I do?
-If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required. You can use it for free!
-
-If your organization needs a secret scanner, you still have a few options:
-* First, we do recommend writing up a brief justification for the powers-that-be at your organization, asking them to allocate budget for secret scanning. If you need help writing something up, contact us via our website: https://gitleaks.io/index.html
-* You can encourage your developers to run the gitleaks core tool as a pre-commit hook (https://github.com/zricethezav/gitleaks#pre-commit). In fact, we encourage everyone to do this anyway, even if they are also running Gitleaks-Action v2.
-* You can always pin your Gitleaks-Action yml to the last free version of Gitleaks-Action (v1.6.0). See here: [How to pin to v1.6.0](v2.md#how-to-pin-to-v160)</br>
-    **Caveat**: There are some known issues with that version, and it's no longer receiving updates. But it's better than nothing.
 
 ## License Change
 Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commercial license](https://github.com/zricethezav/gitleaks-action/blob/v2/COMMERCIAL-LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
