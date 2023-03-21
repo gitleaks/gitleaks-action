@@ -60,12 +60,12 @@ jobs:
 
 ## Questions
 
-### Do I need a license key?
+### Do I need a _free_ license key?
 If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a [free license key](https://gitleaks.io/products.html)
 
 If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required.
 
-### How do I get a license key?
+### How do I get a _free_ license key?
 
 You can visit [gitleaks.io](https://gitleaks.io/products.html) to sign up for a
 free license key. Clicking "Sign Up" will take you to a google form where you will need to supply name, email, and company. An email with a license key will show up shortly after submission.
