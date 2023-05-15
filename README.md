@@ -56,6 +56,10 @@ jobs:
 - `GITLEAKS_CONFIG` (optional): Path to a [gitleaks configuration file](https://github.com/zricethezav/gitleaks#configuration).
 - `GITLEAKS_ENABLE_UPLOAD_ARTIFACT` (optional): Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets. Defaults to `true`.
 - `GITLEAKS_ENABLE_SUMMARY` (optional): Boolean value to enable or disable gitleaks job summary. Defaults to `true`.
+- `GITLEAKS_SILENT` (optional): Boolean value to enable or disable verbose and redact options.
+- `GITLEAKS_NO_GIT` (optional): Boolean value to enable or disable the [--no-git option on gitleaks](https://github.com/gitleaks/gitleaks#detect). 
+- `GITLEAKS_BASELINE_FILE` (optional): Path to a [baseline file](https://github.com/gitleaks/gitleaks#creating-a-baseline)
+- `GITLEAKS_LOG_LEVEL` (optional): The log level, one of [panic, fatal, error, warn, info, debug]. Defaults to debug.
 ---
 
 ## Questions
