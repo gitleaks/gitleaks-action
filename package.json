@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "clean": "rm dist/*",
+    "build": "npx ncc build src/index.js"
+  },
   "dependencies": {
     "@actions/artifact": "^1.1.0",
     "@actions/cache": "^2.0.2",
