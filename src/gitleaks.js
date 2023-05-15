@@ -13,6 +13,8 @@ const path = require("path");
 const artifact = require("@actions/artifact");
 
 const EXIT_CODE_LEAKS_DETECTED = 2;
+const REPORT_PATH=process.env.GITLEAKS_REPORT_PATH || '.';
+const LOG_LEVELS=['panic', 'fatal', 'error', 'warn', 'info', 'debug'] // From https://github.com/rs/zerolog/blob/master/log/log.go
 
 // TODO: Make a gitleaks class with an octokit attribute so we don't have to pass in the octokit to every method.
 
@@ -93,27 +95,45 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
   let args = [
     "detect",
     "--redact",
-    "-v",
     "--exit-code=2",
     "--report-format=sarif",
-    "--report-path=results.sarif",
-    "--log-level=debug",
+    `--report-path=${path.join(REPORT_PATH, 'results.sarif')}`,
   ];
 
-  if (eventType == "push") {
-    if (scanInfo.baseRef == scanInfo.headRef) {
-      // if base and head refs are the same, use `--log-opts=-1` to
-      // scan only one commit
-      args.push(`--log-opts=-1`);
-    } else {
+  if (process.env.GITLEAKS_SILENT!="true") {
+    args.push('-v');
+  }
+
+  if (process.env.GITLEAKS_LOG_LEVEL && LOG_LEVELS.indexOf(process.env.GITLEAKS_LOG_LEVEL) > -1 ) {
+    args.push(`--log-level=${process.env.GITLEAKS_LOG_LEVEL}`)
+  }
+
+  if (process.env.GITLEAKS_NO_GIT=="true") {
+    args.push('--no-git');
+  } else {
+    if (process.env.GITLEAKS_BASELINE_PATH) {
+      args.push(`-b ${process.env.GITLEAKS_BASELINE_PATH}`);
+    }
+
+    if (eventType == "push") {
+      if (scanInfo.baseRef == scanInfo.headRef) {
+        // if base and head refs are the same, use `--log-opts=-1` to
+        // scan only one commit
+        args.push(`--log-opts=-1`);
+      } else {
+        args.push(
+            `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
+        );
+      }
+    } else if (eventType == "pull_request") {
       args.push(
-        `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
+          `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
       );
     }
-  } else if (eventType == "pull_request") {
-    args.push(
-      `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
-    );
+  }
+
+  if(process.env.GITLEAKS_CONFIG) {
+    args.push(`-c ${process.env.GITLEAKS_CONFIG}`);
   }
 
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
