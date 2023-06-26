@@ -6,17 +6,15 @@
 # CAUTION: This is for testing purposes.
 name: gitleaks-action-HEAD
 on:
-  pull_request:
-  push:
   workflow_dispatch:
-  schedule:
-    - cron: "0 4 * * *" # run once a day at 4 AM
+  #schedule:
+   # - cron: "0 4 * * *" # run once a day at 4 AM
 jobs:
   scan:
     name: gitleaks-action-HEAD
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           ref: master
