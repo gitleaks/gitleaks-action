@@ -10,5 +10,5 @@ branding:
   color: "purple"
 description: run gitleaks on push and pull-request events
 runs:
-  using: "node16"
+  using: "node20"
   main: "dist/index.js"
