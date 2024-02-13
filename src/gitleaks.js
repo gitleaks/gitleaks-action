@@ -7,7 +7,7 @@ const exec = require("@actions/exec");
 const cache = require("@actions/cache");
 const core = require("@actions/core");
 const tc = require("@actions/tool-cache");
-const { readFileSync } = require("fs");
+const { readFileSync, existsSync, unlinkSync } = require("fs");
 const os = require("os");
 const path = require("path");
 const { DefaultArtifactClient } = require("@actions/artifact");
@@ -45,7 +45,7 @@ async function Install(version) {
     try {
       downloadPath = await tc.downloadTool(
         gitleaksReleaseURL,
-        path.join(os.tmpdir(), `gitleaks.tmp`)
+        path.join(os.tmpdir(), `gitleaks-${version}.tmp`)
       );
     } catch (error) {
       core.error(
@@ -53,6 +53,7 @@ async function Install(version) {
       );
     }
 
+    core.info(`Extracting gitleaks from ${downloadPath}`);
     if (gitleaksReleaseURL.endsWith(".zip")) {
       await tc.extractZip(downloadPath, pathToInstall);
     } else if (gitleaksReleaseURL.endsWith(".tar.gz")) {
@@ -60,7 +61,9 @@ async function Install(version) {
     } else {
       core.error(`Unsupported archive format: ${gitleaksReleaseURL}`);
     }
-
+    if (existsSync(downloadPath)) {
+      unlinkSync(downloadPath);
+    }
     try {
       await cache.saveCache([pathToInstall], cacheKey);
     } catch (error) {
