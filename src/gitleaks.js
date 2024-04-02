@@ -29,7 +29,7 @@ async function Install(version) {
   try {
     restoredFromCache = await cache.restoreCache([pathToInstall], cacheKey);
   } catch (error) {
-    core.warning(error);
+    core.warning(`Unable to restore from cache: ${error.message}`);
   }
 
   if (restoredFromCache !== undefined) {
@@ -40,34 +40,44 @@ async function Install(version) {
       process.arch,
       version
     );
-    core.info(`Downloading gitleaks from ${gitleaksReleaseURL}`);
-    let downloadPath = "";
-    try {
-      downloadPath = await tc.downloadTool(
-        gitleaksReleaseURL,
-        path.join(os.tmpdir(), `gitleaks-${version}.tmp`)
-      );
-    } catch (error) {
-      core.error(
-        `could not install gitleaks from ${gitleaksReleaseURL}, error: ${error}`
-      );
+
+    const tempPath = path.join(os.tmpdir(), `gitleaks-${version}.tmp`);
+
+    if (!existsSync(tempPath)) {
+      core.info(`Downloading gitleaks from ${gitleaksReleaseURL}...`);
+      let downloadPath = "";
+      try {
+        downloadPath = await tc.downloadTool(
+            gitleaksReleaseURL,
+            tempPath
+        );
+      } catch (error) {
+        core.setFailed(
+            `could not install gitleaks from ${gitleaksReleaseURL}, error: ${error.message}`
+        );
+        return;
+      }
+
+      core.info(`Extracting gitleaks from ${downloadPath}`);
+      if (gitleaksReleaseURL.endsWith(".zip")) {
+        await tc.extractZip(downloadPath, pathToInstall);
+      } else if (gitleaksReleaseURL.endsWith(".tar.gz")) {
+        await tc.extractTar(downloadPath, pathToInstall);
+      } else {
+        core.error(`Unsupported archive format: ${gitleaksReleaseURL}`);
+      }
     }
 
-    core.info(`Extracting gitleaks from ${downloadPath}`);
-    if (gitleaksReleaseURL.endsWith(".zip")) {
-      await tc.extractZip(downloadPath, pathToInstall);
-    } else if (gitleaksReleaseURL.endsWith(".tar.gz")) {
-      await tc.extractTar(downloadPath, pathToInstall);
-    } else {
-      core.error(`Unsupported archive format: ${gitleaksReleaseURL}`);
+    //cleanup
+    if (existsSync(tempPath)) {
+      unlinkSync(tempPath);
     }
-    if (existsSync(downloadPath)) {
-      unlinkSync(downloadPath);
-    }
+
     try {
       await cache.saveCache([pathToInstall], cacheKey);
+      core.info(`Gitleaks cached under key: ${cacheKey}`);
     } catch (error) {
-      core.warning(error);
+      core.warning(`Unable to save cache: ${error.message}`);
     }
   }
 
