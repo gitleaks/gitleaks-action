@@ -7,7 +7,7 @@ const exec = require("@actions/exec");
 const cache = require("@actions/cache");
 const core = require("@actions/core");
 const tc = require("@actions/tool-cache");
-const { readFileSync } = require("fs");
+const { readFileSync, existsSync, unlinkSync } = require("fs");
 const os = require("os");
 const path = require("path");
 const artifact = require("@actions/artifact");
@@ -20,16 +20,25 @@ const EXIT_CODE_LEAKS_DETECTED = 2;
 // or use the latest version of gitleaks if GITLEAKS_VERSION is not specified.
 // This function will also cache the downloaded gitleaks binary in the tool cache.
 async function Install(version) {
-  const pathToInstall = path.join(os.tmpdir(), `gitleaks-${version}`);
+  const pathToInstall = path.join(os.tmpdir(), `gitleaks-${version}-${os.userInfo().username}`);
   core.info(
     `Version to install: ${version} (target directory: ${pathToInstall})`
   );
+
+  if (existsSync(pathToInstall)) {
+    core.info(`Gitleaks already installed, skipping installation`);
+    core.addPath(pathToInstall);
+    return;
+  } else {
+    core.info(`Gitleaks install dir ${pathToInstall} not found, checking github cache...`);
+  }
+
   const cacheKey = `gitleaks-cache-${version}-${process.platform}-${process.arch}`;
   let restoredFromCache = undefined;
   try {
     restoredFromCache = await cache.restoreCache([pathToInstall], cacheKey);
   } catch (error) {
-    core.warning(error);
+    core.warning(`Unable to restore from cache: ${error.message}`);
   }
 
   if (restoredFromCache !== undefined) {
@@ -40,31 +49,44 @@ async function Install(version) {
       process.arch,
       version
     );
-    core.info(`Downloading gitleaks from ${gitleaksReleaseURL}`);
-    let downloadPath = "";
-    try {
-      downloadPath = await tc.downloadTool(
-        gitleaksReleaseURL,
-        path.join(os.tmpdir(), `gitleaks.tmp`)
-      );
-    } catch (error) {
-      core.error(
-        `could not install gitleaks from ${gitleaksReleaseURL}, error: ${error}`
-      );
+
+    const tempPath = path.join(os.tmpdir(), `gitleaks-${version}-${os.userInfo().username}.tmp`);
+
+    if (!existsSync(tempPath)) {
+      core.info(`Downloading gitleaks from ${gitleaksReleaseURL}...`);
+      let downloadPath = "";
+      try {
+        downloadPath = await tc.downloadTool(
+            gitleaksReleaseURL,
+            tempPath
+        );
+      } catch (error) {
+        core.setFailed(
+            `could not install gitleaks from ${gitleaksReleaseURL}, error: ${error.message}`
+        );
+        return;
+      }
+
+      core.info(`Extracting gitleaks from ${downloadPath}`);
+      if (gitleaksReleaseURL.endsWith(".zip")) {
+        await tc.extractZip(downloadPath, pathToInstall);
+      } else if (gitleaksReleaseURL.endsWith(".tar.gz")) {
+        await tc.extractTar(downloadPath, pathToInstall);
+      } else {
+        core.error(`Unsupported archive format: ${gitleaksReleaseURL}`);
+      }
     }
 
-    if (gitleaksReleaseURL.endsWith(".zip")) {
-      await tc.extractZip(downloadPath, pathToInstall);
-    } else if (gitleaksReleaseURL.endsWith(".tar.gz")) {
-      await tc.extractTar(downloadPath, pathToInstall);
-    } else {
-      core.error(`Unsupported archive format: ${gitleaksReleaseURL}`);
+    //cleanup
+    if (existsSync(tempPath)) {
+      unlinkSync(tempPath);
     }
 
     try {
       await cache.saveCache([pathToInstall], cacheKey);
+      core.info(`Gitleaks cached under key: ${cacheKey}`);
     } catch (error) {
-      core.warning(error);
+      core.warning(`Unable to save cache: ${error.message}`);
     }
   }
 
