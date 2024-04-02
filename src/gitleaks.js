@@ -29,6 +29,8 @@ async function Install(version) {
     core.info(`Gitleaks already installed, skipping installation`);
     core.addPath(pathToInstall);
     return;
+  } else {
+    core.info(`Gitleaks install dir ${pathToInstall} not found, checking github cache...`);
   }
 
   const cacheKey = `gitleaks-cache-${version}-${process.platform}-${process.arch}`;
