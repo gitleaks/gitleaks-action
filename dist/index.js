@@ -69867,10 +69867,19 @@ const EXIT_CODE_LEAKS_DETECTED = 2;
 // or use the latest version of gitleaks if GITLEAKS_VERSION is not specified.
 // This function will also cache the downloaded gitleaks binary in the tool cache.
 async function Install(version) {
-  const pathToInstall = path.join(os.tmpdir(), `gitleaks-${version}`);
+  const pathToInstall = path.join(os.tmpdir(), `gitleaks-${version}-${os.userInfo().username}`);
   core.info(
     `Version to install: ${version} (target directory: ${pathToInstall})`
   );
+
+  if (existsSync(pathToInstall)) {
+    core.info(`Gitleaks already installed, skipping installation`);
+    core.addPath(pathToInstall);
+    return;
+  } else {
+    core.info(`Gitleaks install dir ${pathToInstall} not found, checking github cache...`);
+  }
+
   const cacheKey = `gitleaks-cache-${version}-${process.platform}-${process.arch}`;
   let restoredFromCache = undefined;
   try {
@@ -69888,7 +69897,7 @@ async function Install(version) {
       version
     );
 
-    const tempPath = path.join(os.tmpdir(), `gitleaks-${version}.tmp`);
+    const tempPath = path.join(os.tmpdir(), `gitleaks-${version}-${os.userInfo().username}.tmp`);
 
     if (!existsSync(tempPath)) {
       core.info(`Downloading gitleaks from ${gitleaksReleaseURL}...`);
