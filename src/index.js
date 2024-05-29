@@ -19,7 +19,7 @@ if (
   gitleaksEnableSummary = false;
 }
 
-let gitleaksEnableUploadArtifact = true;
+let gitleaksEnableUploadArtifact = process.env.GITLEAKS_VERSION || true;
 if (
   process.env.GITLEAKS_ENABLE_UPLOAD_ARTIFACT == "false" ||
   process.env.GITLEAKS_ENABLE_UPLOAD_ARTIFACT == 0
