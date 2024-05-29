@@ -123,13 +123,14 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
   });
   core.setOutput("exit-code", exitCode);
 
-  const artifactClient = artifact.create();
-  const artifactName = "gitleaks-results.sarif";
-  const options = {
-    continueOnError: true,
-  };
+
 
   if (gitleaksEnableUploadArtifact == true) {
+    const artifactClient = artifact.create();
+    const artifactName = "gitleaks-results.sarif";
+    const options = {
+      continueOnError: true,
+    };
     await artifactClient.uploadArtifact(
       artifactName,
       ["results.sarif"],
