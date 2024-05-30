@@ -131,10 +131,10 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
     };
 
     await artifactClient.uploadArtifact(
-        artifactName,
-        ["results.sarif"],
-        process.env.HOME,
-        options
+      artifactName,
+      ["results.sarif"],
+      process.env.HOME,
+      options
     );
   }
 
