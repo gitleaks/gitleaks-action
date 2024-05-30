@@ -10,7 +10,7 @@ const tc = require("@actions/tool-cache");
 const { readFileSync } = require("fs");
 const os = require("os");
 const path = require("path");
-const artifact = require("@actions/artifact");
+const { DefaultArtifactClient } = require("@actions/artifact");
 
 const EXIT_CODE_LEAKS_DETECTED = 2;
 
@@ -123,13 +123,13 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
   });
   core.setOutput("exit-code", exitCode);
 
-  const artifactClient = artifact.create();
-  const artifactName = "gitleaks-results.sarif";
-  const options = {
-    continueOnError: true,
-  };
-
   if (gitleaksEnableUploadArtifact == true) {
+    const artifactClient = new DefaultArtifactClient();
+    const artifactName = "gitleaks-results.sarif";
+    const options = {
+      continueOnError: true,
+    };
+
     await artifactClient.uploadArtifact(
       artifactName,
       ["results.sarif"],
