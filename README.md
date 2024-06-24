@@ -110,3 +110,10 @@ Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [commerci
 Please see our [contributing guidelines](CONTRIBUTING.md).
 
 _Copyright © 2022 Gitleaks LLC - All Rights Reserved_
+\n## Stale PRs
+
+Stale pull requests (PRs) are those that have not had any activity for a certain period of time. It's important to manage stale PRs to keep the project's pull requests manageable and to ensure that contributions are either moving forward or being closed if they are no longer relevant.
+
+Stale PRs are managed by using the [Stale](https://github.com/actions/stale):
+- PRs with no activity for 30 days are marked as stale
+- stale PRs for 10 days are closed
