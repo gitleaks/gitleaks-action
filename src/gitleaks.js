@@ -14,13 +14,20 @@ const { DefaultArtifactClient } = require("@actions/artifact");
 
 const EXIT_CODE_LEAKS_DETECTED = 2;
 
+function camelCase(str) {
+  return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+}
+
 // TODO: Make a gitleaks class with an octokit attribute so we don't have to pass in the octokit to every method.
 
 // Install will download the version of gitleaks specified in GITLEAKS_VERSION
 // or use the latest version of gitleaks if GITLEAKS_VERSION is not specified.
 // This function will also cache the downloaded gitleaks binary in the tool cache.
 async function Install(version) {
-  const pathToInstall = path.join(os.tmpdir(), `gitleaks-${version}-${os.userInfo().username}`);
+  const runnerIdentifier = camelCase(process.env.RUNNER_NAME);
+  const versionIdentifier = `gitleaks-${version}-${runnerIdentifier}`;
+  const pathToInstall = path.join(os.tmpdir(), versionIdentifier);
+
   core.info(
     `Version to install: ${version} (target directory: ${pathToInstall})`
   );
@@ -50,10 +57,10 @@ async function Install(version) {
       version
     );
 
-    const tempPath = path.join(os.tmpdir(), `gitleaks-${version}-${os.userInfo().username}.tmp`);
+    const tempPath = path.join(os.tmpdir(), `${versionIdentifier}.tmp`);
 
     if (!existsSync(tempPath)) {
-      core.info(`Downloading gitleaks from ${gitleaksReleaseURL}...`);
+      core.info(`Downloading Gitleaks from ${gitleaksReleaseURL}...`);
       let downloadPath = "";
       try {
         downloadPath = await tc.downloadTool(
