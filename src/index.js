@@ -46,24 +46,7 @@ if (!supportedEvents.includes(eventType)) {
 }
 
 // Determine if the github user is an individual or an organization
-let githubUsername = "";
-
-// eventJSON.repository is undefined for scheduled events
-if (eventType == "schedule") {
-  githubUsername = process.env.GITHUB_REPOSITORY_OWNER;
-  eventJSON.repository = {
-    owner: {
-      login: process.env.GITHUB_REPOSITORY_OWNER,
-    },
-    full_name: process.env.GITHUB_REPOSITORY,
-  };
-  let repoName = process.env.GITHUB_REPOSITORY;
-  repoName = repoName.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "");
-  // update repo name
-  process.env.GITHUB_REPOSITORY = repoName;
-} else {
-  githubUsername = eventJSON.repository.owner.login;
-}
+const githubUsername = eventJSON.repository.owner.login;
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
