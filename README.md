@@ -53,6 +53,7 @@ jobs:
 - `GITLEAKS_NOTIFY_USER_LIST` (optional): A list of GitHub accounts that should be alerted when **gitleaks-action** detects a leak. An email will be sent by GitHub to the user if their GitHub notification settings permit it. The format should be comma-separated with each username prefixed with `@`. Ex: `@octocat,@zricethezav,@gitleaks`. Spaces are okay too.
 - `GITLEAKS_ENABLE_COMMENTS` (optional): Boolean value that turns on or off PR commenting. Default value is `true`.
   Set to `false` to disable comments.
+- `GITLEAKS_ADDITIONAL_COMMENT` (optional): An additional comment that will be appended to PR comments, if enabled. You can use it to add your custom docs link, for example.
 - `GITLEAKS_CONFIG` (optional): Path to a [gitleaks configuration file](https://github.com/zricethezav/gitleaks#configuration).
 - `GITLEAKS_ENABLE_UPLOAD_ARTIFACT` (optional): Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets. Defaults to `true`.
 - `GITLEAKS_ENABLE_SUMMARY` (optional): Boolean value to enable or disable gitleaks job summary. Defaults to `true`.
