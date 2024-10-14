@@ -120,12 +120,14 @@ octokit
 // if license is valid
 async function start() {
   // validate key first
-  if (shouldValidate) {
-    core.debug(
-      `eventJSON.repository.full_name: ${eventJSON.repository.full_name}`
-    );
-    await keygen.ValidateKey(eventJSON);
-  }
+
+  // keygen payment method is getting declined... disable this check for now. 
+  // if (shouldValidate) {
+  //   core.debug(
+  //     `eventJSON.repository.full_name: ${eventJSON.repository.full_name}`
+  //   );
+  //   await keygen.ValidateKey(eventJSON);
+  // }
 
   // default exit code, this value will be overwritten if gitleaks
   // detects leaks or errors
