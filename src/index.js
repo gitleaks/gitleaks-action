@@ -70,7 +70,7 @@ const octokit = new Octokit({
   baseUrl: process.env.GITHUB_API_URL,
 });
 
-var shouldValidate = true;
+var shouldValidate = false;
 
 // Docs: https://docs.github.com/en/rest/users/users#get-a-user
 octokit
