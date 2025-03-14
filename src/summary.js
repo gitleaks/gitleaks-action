@@ -41,7 +41,7 @@ async function Write(exitCode, eventJSON) {
       ]);
     });
     await core.summary
-      .addHeading("🛑 Gitleaks detected secrets 🛑")
+      .addHeading("🛑 Gitleaks detected secrets;) 🛑")
       .addTable([resultsHeader, ...resultsRows])
       .write();
   } else if (exitCode == EXIT_CODE_NO_LEAKS_DETECTED) {
