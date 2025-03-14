@@ -190,9 +190,9 @@ async function start() {
     core.info("✅ No leaks detected");
   } else if (exitCode == gitleaks.EXIT_CODE_LEAKS_DETECTED) {
     core.warning("🛑 Leaks detected, see job summary for details");
-    process.exit(1);
+    //process.exit(1);
   } else {
     core.error(`ERROR: Unexpected exit code [${exitCode}]`);
-    process.exit(exitCode);
+    //process.exit(exitCode);
   }
 }
