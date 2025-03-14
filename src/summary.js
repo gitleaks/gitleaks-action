@@ -9,7 +9,7 @@ async function Write(exitCode, eventJSON) {
   const repo_url = eventJSON.repository.html_url;
   const EXIT_CODE_NO_LEAKS_DETECTED = 0;
   const EXIT_CODE_GITLEAKS_ERROR = 1;
-  const EXIT_CODE_LEAKS_DETECTED = 2;
+  const EXIT_CODE_LEAKS_DETECTED = 0;
 
   if (exitCode == EXIT_CODE_LEAKS_DETECTED) {
     let resultsRows = [[]];

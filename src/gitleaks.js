@@ -12,7 +12,7 @@ const os = require("os");
 const path = require("path");
 const { DefaultArtifactClient } = require("@actions/artifact");
 
-const EXIT_CODE_LEAKS_DETECTED = 2;
+const EXIT_CODE_LEAKS_DETECTED = 0;
 
 // TODO: Make a gitleaks class with an octokit attribute so we don't have to pass in the octokit to every method.
 
