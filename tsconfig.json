@@ -1,0 +1,50 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "compilerOptions": {
+        "types": [
+            "node"
+        ],
+        "disableSizeLimit": true,
+        "target": "ESNext",
+        "lib": [
+            "ES2022",
+            "DOM"
+        ],
+        "declarationMap": true,
+        "declaration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "module": "ES2022",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "importHelpers": true,
+        "noEmitHelpers": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "useUnknownInCatchVariables": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedIndexedAccess": true,
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "skipLibCheck": true,
+        "outDir": "./output",
+        "baseUrl": ".",
+        "rootDir": "./src",
+        "paths": {}
+    },
+    "exclude": [
+        "dist"
+    ]
+}
