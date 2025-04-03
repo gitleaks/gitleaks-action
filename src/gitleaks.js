@@ -132,7 +132,6 @@ async function Scan(
     "--report-format=sarif",
     "--report-path=results.sarif",
     "--log-level=debug",
-    gitleaksRepositoryPath
   ];
 
   if (eventType == "push") {
@@ -150,6 +149,8 @@ async function Scan(
       `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
     );
   }
+
+  args.push(gitleaksRepositoryPath);
 
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
   let exitCode = await exec.exec("gitleaks", args, {
