@@ -89,9 +89,14 @@ async function Latest(octokit) {
   return latest.data.tag_name.replace(/^v/, "");
 }
 
-async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
+async function Scan(
+  gitleaksEnableUploadArtifact,
+  scanInfo,
+  eventType,
+  gitleaksRepositoryPath
+) {
   let args = [
-    "detect",
+    "git",
     "--redact",
     "-v",
     "--exit-code=2",
@@ -115,6 +120,8 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
       `--log-opts=--no-merges --first-parent ${scanInfo.baseRef}^..${scanInfo.headRef}`
     );
   }
+
+  args.push(gitleaksRepositoryPath);
 
   core.info(`gitleaks cmd: gitleaks ${args.join(" ")}`);
   let exitCode = await exec.exec("gitleaks", args, {
@@ -145,7 +152,8 @@ async function ScanPullRequest(
   gitleaksEnableUploadArtifact,
   octokit,
   eventJSON,
-  eventType
+  eventType,
+  gitleaksRepositoryPath
 ) {
   const fullName = eventJSON.repository.full_name;
   const [owner, repo] = fullName.split("/");
@@ -174,7 +182,8 @@ async function ScanPullRequest(
   const exitCode = await Scan(
     gitleaksEnableUploadArtifact,
     scanInfo,
-    eventType
+    eventType,
+    gitleaksRepositoryPath
   );
 
   // skip comments if `GITLEAKS_ENABLE_COMMENTS` is set to false
