@@ -57,6 +57,8 @@ jobs:
 - `GITLEAKS_ENABLE_UPLOAD_ARTIFACT` (optional): Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets. Defaults to `true`.
 - `GITLEAKS_ENABLE_SUMMARY` (optional): Boolean value to enable or disable gitleaks job summary. Defaults to `true`.
 - `GITLEAKS_VERSION` (optional): A particular Gitleaks version to use (e.g. `8.15.3`, no `v` prefix) or use `latest` to always use the newest available version. Defaults to a hard-coded version number.
+- `GITLEAKS_REPO_PATH` (optional): A relative path to the Git repository. Defaults to the current directory.
+
 ---
 
 ## Questions
