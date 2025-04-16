@@ -161,6 +161,13 @@ async function start() {
       baseRef: eventJSON.commits[0].id,
       headRef: eventJSON.commits[eventJSON.commits.length - 1].id,
     };
+
+    // Override scanInfo.baseRef if `BASE_REF` is set.
+    if (process.env.BASE_REF) {
+      scanInfo.baseRef = process.env.BASE_REF;
+      core.info(`Overriding baseRef for scan with ${process.env.BASE_REF}.`)
+    }
+
     exitCode = await gitleaks.Scan(
       gitleaksEnableUploadArtifact,
       scanInfo,

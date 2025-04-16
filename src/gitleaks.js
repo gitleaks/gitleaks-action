@@ -171,6 +171,12 @@ async function ScanPullRequest(
     headRef: commits.data[commits.data.length - 1].sha,
   };
 
+  // Override scanInfo.baseRef if `BASE_REF` is set.
+  if (process.env.BASE_REF) {
+    scanInfo.baseRef = process.env.BASE_REF;
+    core.info(`Overriding baseRef for scan with ${process.env.BASE_REF}.`)
+  }
+
   const exitCode = await Scan(
     gitleaksEnableUploadArtifact,
     scanInfo,
