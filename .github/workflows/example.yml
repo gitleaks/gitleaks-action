@@ -15,8 +15,8 @@ jobs:
           fetch-depth: 0
       - uses: gitleaks/gitleaks-action@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}}
+          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          #GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}}
           # examples of how to use optional configs:
           # GITLEAKS_CONFIG: "configs/simple-config.toml"
-          # GITLEAKS_NOTIFY_USER_LIST: "@zricethezav"
+          GITLEAKS_NOTIFY_USER_LIST: "@zricethezav"
