@@ -224,6 +224,10 @@ echo ${fingerprint} >> .gitleaksignore
         line: results.locations[0].physicalLocation.region.startLine,
       };
 
+      if (process.env.GITLEAKS_ADDITIONAL_COMMENT) {
+        proposedComment.body += `\n${process.env.GITLEAKS_ADDITIONAL_COMMENT}`;
+      }
+
       // check if there are any GITLEAKS_NOTIFY_USER_LIST env variable
       if (process.env.GITLEAKS_NOTIFY_USER_LIST) {
         proposedComment.body += `\n\ncc ${process.env.GITLEAKS_NOTIFY_USER_LIST}`;
