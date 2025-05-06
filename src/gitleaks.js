@@ -100,7 +100,7 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
     "--log-level=debug",
   ];
 
-  if (eventType == "push") {
+  if (eventType == "push" || eventType == "merge_group") {
     if (scanInfo.baseRef == scanInfo.headRef) {
       // if base and head refs are the same, use `--log-opts=-1` to
       // scan only one commit

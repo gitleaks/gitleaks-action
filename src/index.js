@@ -34,6 +34,7 @@ let eventJSON = JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH, "utf8"));
 // Examples of event types: "workflow_dispatch", "push", "pull_request", etc
 const eventType = process.env.GITHUB_EVENT_NAME;
 const supportedEvents = [
+  "merge_group",
   "push",
   "pull_request",
   "workflow_dispatch",
@@ -121,7 +122,7 @@ octokit
 async function start() {
   // validate key first
 
-  // keygen payment method is getting declined... disable this check for now. 
+  // keygen payment method is getting declined... disable this check for now.
   // if (shouldValidate) {
   //   core.debug(
   //     `eventJSON.repository.full_name: ${eventJSON.repository.full_name}`
@@ -184,6 +185,18 @@ async function start() {
       gitleaksEnableUploadArtifact,
       octokit,
       eventJSON,
+      eventType
+    );
+  } else if (eventType === "merge_group") {
+    scanInfo = {
+      gitleaksPath: gitleaksPath,
+      baseRef: eventJSON.merge_group.base_sha,
+      headRef: eventJSON.merge_group.head_sha,
+    };
+
+    exitCode = await gitleaks.Scan(
+      gitleaksEnableUploadArtifact,
+      scanInfo,
       eventType
     );
   }
