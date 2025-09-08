@@ -54,6 +54,7 @@ jobs:
 - `GITLEAKS_ENABLE_COMMENTS` (optional): Boolean value that turns on or off PR commenting. Default value is `true`.
   Set to `false` to disable comments.
 - `GITLEAKS_CONFIG` (optional): Path to a [gitleaks configuration file](https://github.com/zricethezav/gitleaks#configuration).
+- `GITLEAKS_FLAGS` (optional): Full override for the Gitleaks CLI command. Accepts a string of flags exactly as you'd pass them to the CLI (e.g. `detect --source=. --no-git --config=.gitleaks.toml --exit-code=2`). When set, this disables all internal flag injection, giving you complete control over scan behavior. Useful for advanced customization or debugging.
 - `GITLEAKS_ENABLE_UPLOAD_ARTIFACT` (optional): Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets. Defaults to `true`.
 - `GITLEAKS_ENABLE_SUMMARY` (optional): Boolean value to enable or disable gitleaks job summary. Defaults to `true`.
 - `GITLEAKS_VERSION` (optional): A particular Gitleaks version to use (e.g. `8.15.3`, no `v` prefix) or use `latest` to always use the newest available version. Defaults to a hard-coded version number.

@@ -90,15 +90,21 @@ async function Latest(octokit) {
 }
 
 async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
-  let args = [
-    "detect",
-    "--redact",
-    "-v",
-    "--exit-code=2",
-    "--report-format=sarif",
-    "--report-path=results.sarif",
-    "--log-level=debug",
-  ];
+   let args;
+    if (process.env.GITLEAKS_FLAGS) {
+      args = process.env.GITLEAKS_FLAGS.split(" ");
+      core.info(`Using custom GITLEAKS_FLAGS: ${args.join(" ")}`);
+    } else {
+      args = [
+        "detect",
+        "--redact",
+        "-v",
+        "--exit-code=2",
+        "--report-format=sarif",
+        "--report-path=results.sarif",
+        "--log-level=debug",
+      ];
+    }
 
   if (eventType == "push") {
     if (scanInfo.baseRef == scanInfo.headRef) {
