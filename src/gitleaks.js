@@ -32,12 +32,12 @@ async function Install(version) {
     `Version to install: ${version} (target directory: ${pathToInstall})`
   );
 
-  if (existsSync(pathToInstall)) {
+  if (existsSync(path.join(pathToInstall, "gitleaks"))) {
     core.info(`Gitleaks already installed, skipping installation`);
     core.addPath(pathToInstall);
     return;
   } else {
-    core.info(`Gitleaks install dir ${pathToInstall} not found, checking github cache...`);
+    core.info(`Gitleaks executable in the install dir ${pathToInstall} not found, checking github cache...`);
   }
 
   const cacheKey = `gitleaks-cache-${version}-${process.platform}-${process.arch}`;
