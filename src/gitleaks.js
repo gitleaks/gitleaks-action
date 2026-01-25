@@ -13,6 +13,7 @@ const path = require("path");
 const { DefaultArtifactClient } = require("@actions/artifact");
 
 const EXIT_CODE_LEAKS_DETECTED = 2;
+const WINDOWS = "windows";
 
 // TODO: Make a gitleaks class with an octokit attribute so we don't have to pass in the octokit to every method.
 
@@ -74,9 +75,10 @@ async function Install(version) {
 function downloadURL(platform, arch, version) {
   const baseURL = "https://github.com/zricethezav/gitleaks/releases/download";
   if (platform == "win32") {
-    platform = "windows";
+    platform = WINDOWS;
   }
-  return `${baseURL}/v${version}/gitleaks_${version}_${platform}_${arch}.tar.gz`;
+  const extension = platform == WINDOWS ? "zip" : "tar.gz";
+  return `${baseURL}/v${version}/gitleaks_${version}_${platform}_${arch}.${extension}`;
 }
 
 async function Latest(octokit) {
