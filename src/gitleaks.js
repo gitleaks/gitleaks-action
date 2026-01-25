@@ -43,10 +43,11 @@ async function Install(version) {
     );
     core.info(`Downloading gitleaks from ${gitleaksReleaseURL}`);
     let downloadPath = "";
+    const extension = gitleaksReleaseURL.endsWith(".zip") ? "zip" : "tmp";
     try {
       downloadPath = await tc.downloadTool(
         gitleaksReleaseURL,
-        path.join(os.tmpdir(), `gitleaks.tmp`)
+        path.join(os.tmpdir(), `gitleaks.${extension}`)
       );
     } catch (error) {
       core.error(
