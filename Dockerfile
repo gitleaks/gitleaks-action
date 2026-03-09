@@ -8,3 +8,5 @@ LABEL "repository"="https://github.com/zricethezav/gitleaks-action"
 
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
+
+### This is an edited file
