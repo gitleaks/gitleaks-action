@@ -44,7 +44,6 @@ jobs:
 ```
 
 ---
-
 ### Environment Variables:
 
 - `GITHUB_TOKEN`: This variable is automatically assigned by GitHub when any action gets kicked off. You can read more about the token [here](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret).
@@ -58,13 +57,11 @@ jobs:
 - `GITLEAKS_ENABLE_UPLOAD_ARTIFACT` (optional): Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets. Defaults to `true`.
 - `GITLEAKS_ENABLE_SUMMARY` (optional): Boolean value to enable or disable gitleaks job summary. Defaults to `true`.
 - `GITLEAKS_VERSION` (optional): A particular Gitleaks version to use (e.g. `8.15.3`, no `v` prefix) or use `latest` to always use the newest available version. Defaults to a hard-coded version number.
-
 ---
 
 ## Questions
 
 ### Do I need a _free_ license key?
-
 If you are scanning repos that belong to [an organization account](https://docs.github.com/en/organizations/collaborating-with-groups-in-organizations/about-organizations), you will need to obtain a [free license key](https://gitleaks.io)
 
 If you are scanning repos that belong to [a personal account](https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts), then no license key is required.
@@ -92,11 +89,9 @@ the security alert in the GitHub Security dashboard will show as resolved, even 
 you should rotate the secret (and also consider re-writing the git history to remove the leak altogether).
 
 ### Why is my gitleaks-action job suddenly failing?
-
 _6/21/2022_
 
 On June 21, 2022, we merged [Gitleaks Action v2](https://github.com/gitleaks/gitleaks-action/releases/tag/v2.0.0) into the `master` branch. This was a breaking update, and we made an effort to contact as many of our users as possible via GitHub, social media, etc. If you didn't know this breaking update was coming, we sincerely apologize for the inconvenience. The good news is, remedying the job failure is straightforward! You can either:
-
 1. [Upgrade to v2](v2.md#how-to-upgrade-to-v2), or
 1. [Pin to an older version](v2.md#how-to-pin-to-v160)
 
@@ -110,11 +105,9 @@ Enable this **gitleaks-action** and copy
 `<img alt="gitleaks badge" src="https://img.shields.io/badge/protected%20by-gitleaks-blue">` to your readme.
 
 ## License Change
-
 Since v2.0.0 of Gitleaks-Action, the license has changed from MIT to a [license](LICENSE.txt). Prior versions to v2.0.0 of Gitleaks-Actions will remain under the MIT license.
 
 ## Contributing
-
 Please see our [contributing guidelines](CONTRIBUTING.md).
 
 _Copyright © 2022 Gitleaks LLC - All Rights Reserved_
