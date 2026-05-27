@@ -3,12 +3,20 @@
 # You should have received a copy of the GITLEAKS-ACTION END-USER LICENSE AGREEMENT with this file.
 # If not, please visit https://gitleaks.io/COMMERCIAL-LICENSE.txt
 
-name: Gitleaks
-author: zricethezav
-branding:
-  icon: "git-pull-request"
-  color: "purple"
-description: run gitleaks on push and pull-request events
+name: Gitleaks Scanner
+description: Run gitleaks to detect secrets in your repositories
+author: MMS
+
+inputs:
+  config-path:
+    description: Path to gitleaks config file
+    required: false
+    default: .gitleaks.toml
+  fail-on-findings:
+    description: Fail the build if leaks are found
+    required: false
+    default: "true"
+
 runs:
-  using: "node20"
+  using: "node24"
   main: "dist/index.js"
