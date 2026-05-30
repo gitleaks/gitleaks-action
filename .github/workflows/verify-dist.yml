@@ -1,0 +1,40 @@
+name: Verify dist
+
+on:
+  pull_request:
+    paths:
+      - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - "dist/**"
+  push:
+    branches: [master]
+    paths:
+      - "src/**"
+      - "package.json"
+      - "package-lock.json"
+      - "dist/**"
+
+jobs:
+  verify:
+    name: Verify dist/ matches source
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 24
+
+      - run: npm ci
+
+      - run: npx ncc build src/index.js -o dist
+
+      - name: Check for uncommitted changes to dist/
+        run: |
+          if [ -n "$(git diff --name-only dist/)" ]; then
+            echo "::error::dist/ is out of date. Run 'npm ci && npx ncc build src/index.js -o dist' and commit the result."
+            git diff --stat dist/
+            exit 1
+          fi
+          echo "dist/ is up to date."

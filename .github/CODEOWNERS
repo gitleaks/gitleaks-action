@@ -1,0 +1,10 @@
+# Default — every PR requires at least one org member review.
+*                          @bryanbeverly @dustin-decker @dxa4481 @zricethezav
+
+# Supply-chain critical paths (same reviewers, but called out
+# explicitly so they survive if the default is ever loosened).
+/action.yml                @bryanbeverly @dustin-decker @dxa4481 @zricethezav
+/dist/                     @bryanbeverly @dustin-decker @dxa4481 @zricethezav
+/package.json              @bryanbeverly @dustin-decker @dxa4481 @zricethezav
+/package-lock.json         @bryanbeverly @dustin-decker @dxa4481 @zricethezav
+/.github/                  @bryanbeverly @dustin-decker @dxa4481 @zricethezav
