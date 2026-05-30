@@ -34,14 +34,37 @@ jobs:
     name: gitleaks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
+      - uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} # Only required for Organizations, not personal accounts.
 ```
+
+## Migrating from v2 to v3
+
+**v3 migrates the GitHub Actions runtime from Node 20 to Node 24.** There are no changes to inputs, outputs, or behavior. The upgrade is a one-line change in your workflow file:
+
+```diff
+-      - uses: gitleaks/gitleaks-action@v2
++      - uses: gitleaks/gitleaks-action@v3
+```
+
+You should also update `actions/checkout` to v6 (the Node 24 release):
+
+```diff
+-      - uses: actions/checkout@v3  # or @v4
++      - uses: actions/checkout@v6
+```
+
+**Why v3?** GitHub is deprecating Node 20 for GitHub Actions:
+
+- **June 2, 2026:** GitHub switches the runner default to Node 24. Workflows using Node 20 actions (including `gitleaks-action@v2`) will require `ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true` to keep running. Without this opt-out, Node 20 actions will fail.
+- **September 16, 2026:** Node 20 is removed from GitHub-hosted runners entirely. `gitleaks-action@v2` will stop working regardless of any opt-out flag.
+
+**Runner requirements:** v3 requires GitHub Actions runner v2.327.1 or later. All current GitHub-hosted runners meet this requirement. Self-hosted runner operators should update their runner before upgrading to v3.
 
 
 ---
