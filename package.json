@@ -8,7 +8,7 @@
     "@octokit/rest": "18.12.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "0.34.0"
+    "@vercel/ncc": "0.38.4"
   },
   "license": "SEE LICENSE IN COMMERCIAL-LICENSE.txt",
   "name": "gitleaks-github-action"
