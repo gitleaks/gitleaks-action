@@ -143,13 +143,9 @@ async function Scan(gitleaksEnableUploadArtifact, scanInfo, eventType) {
 
 async function ScanPullRequest(
   gitleaksEnableUploadArtifact,
-  octokit,
   eventJSON,
   eventType
 ) {
-  const fullName = eventJSON.repository.full_name;
-  const [owner, repo] = fullName.split("/");
-
   if (!process.env.GITHUB_TOKEN) {
     core.error(
       "🛑 GITHUB_TOKEN is now required to scan pull requests. You can use the automatically created token as shown in the [README](https://github.com/gitleaks/gitleaks-action#usage-example). For more info about the recent breaking update, see [here](https://github.com/gitleaks/gitleaks-action#-announcement)."
@@ -157,18 +153,9 @@ async function ScanPullRequest(
     process.exit(1);
   }
 
-  let commits = await octokit.request(
-    "GET /repos/{owner}/{repo}/pulls/{pull_number}/commits",
-    {
-      owner: owner,
-      repo: repo,
-      pull_number: eventJSON.number,
-    }
-  );
-
   let scanInfo = {
-    baseRef: commits.data[0].sha,
-    headRef: commits.data[commits.data.length - 1].sha,
+    baseRef: eventJSON.pull_request.base.sha,
+    headRef: eventJSON.pull_request.head.sha,
   };
 
   // Override scanInfo.baseRef if `BASE_REF` is set.
