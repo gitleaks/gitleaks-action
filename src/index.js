@@ -65,6 +65,18 @@ if (eventType == "schedule") {
   githubUsername = eventJSON.repository.owner.login;
 }
 
+let gitleaksRepositoryPath = ".";
+if (process.env.GITLEAKS_REPO_PATH) {
+  gitleaksRepositoryPath = process.env.GITLEAKS_REPO_PATH;
+  core.info(
+    `GITLEAKS_REPO_PATH is set to [${gitleaksRepositoryPath}]. This will be used as the working directory for gitleaks.`
+  );
+} else {
+  core.info(
+    `GITLEAKS_REPO_PATH is not set. Using the default working directory [${gitleaksRepositoryPath}].`
+  );
+}
+
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
   baseUrl: process.env.GITHUB_API_URL,
@@ -171,20 +183,23 @@ async function start() {
     exitCode = await gitleaks.Scan(
       gitleaksEnableUploadArtifact,
       scanInfo,
-      eventType
+      eventType,
+      gitleaksRepositoryPath
     );
   } else if (eventType === "workflow_dispatch" || eventType === "schedule") {
     exitCode = await gitleaks.Scan(
       gitleaksEnableUploadArtifact,
       scanInfo,
-      eventType
+      eventType,
+      gitleaksRepositoryPath
     );
   } else if (eventType === "pull_request") {
     exitCode = await gitleaks.ScanPullRequest(
       gitleaksEnableUploadArtifact,
       octokit,
       eventJSON,
-      eventType
+      eventType,
+      gitleaksRepositoryPath
     );
   }
 
