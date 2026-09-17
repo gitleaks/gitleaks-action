@@ -43,6 +43,27 @@ jobs:
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }} # Only required for Organizations, not personal accounts.
 ```
 
+## What gets scanned
+
+The range of commits gitleaks scans depends on the event that triggered the workflow.
+
+| Event | Commits scanned | `--log-opts` passed |
+|---|---|---|
+| `pull_request` | only the commits in the pull request | `--no-merges --first-parent <base>^..<head>` |
+| `push` (existing branch) | only the commits in the push | `--no-merges --first-parent <base>^..<head>` |
+| `push` (new branch, base == head) | the single head commit | `-1` |
+| `schedule`, `workflow_dispatch`, any other event | **the full history** | *(none)* |
+
+> [!IMPORTANT]
+> `fetch-depth: 0` does not widen the scan. It makes the full history available on
+> the runner, which the full-history scan needs, but on `pull_request` and `push`
+> the action still limits the range to that event's own commits.
+
+This is why the example workflow above keeps both triggers: the per-PR runs catch
+secrets as they are introduced, and the scheduled run is what scans everything that
+is already in the history. If you remove the `schedule` trigger, nothing will scan
+your existing history.
+
 ## Migrating from v2 to v3
 
 **v3 migrates the GitHub Actions runtime from Node 20 to Node 24.** There are no changes to inputs, outputs, or behavior. The upgrade is a one-line change in your workflow file:
