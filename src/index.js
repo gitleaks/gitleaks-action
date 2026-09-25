@@ -182,7 +182,6 @@ async function start() {
   } else if (eventType === "pull_request") {
     exitCode = await gitleaks.ScanPullRequest(
       gitleaksEnableUploadArtifact,
-      octokit,
       eventJSON,
       eventType
     );
